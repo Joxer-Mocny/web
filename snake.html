@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My absolute snake son</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
     <link rel="stylesheet" href="snake.css">
 </head>
 <body>
-    <div class="bigScreen">
-        <canvas width="600" height="600"></canvas>
+    <div id="gameArea" class="bigScreen">
+        <canvas></canvas>
     </div>
-
-    <h1>0</h1>
+    <h1>click to start 0 use arrows</h1>
     <div class="btn">
         <button class="btnL" onclick="moveleft()">LEFT</button>
         <button class="btnU" onclick="moveup()">UP</button>
