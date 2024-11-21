@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to load the game
     function loadGame() {
         var gameContainer = document.getElementById("gameContainer");
-        gameContainer.innerHTML = '<iframe src="snake.html" width="100%" height="100%" frameborder="0"></iframe>';
+        gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0"></iframe>';
     }
 
     // Function to unload the game

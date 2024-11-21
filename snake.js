@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
     const title = document.querySelector("h1");
+    // const restartButton = document.getElementById("restartButton");
     
     let tileSize = 20;
     let snakeSpeed = tileSize;
@@ -14,27 +15,35 @@ document.addEventListener("DOMContentLoaded", () => {
     let foodPosX = 0;
     let foodPosY = 0;
     let gameIsRunning = false;
+    let gameStarted = false; 
     let fps = 15;
     let score = 0;
-    
-    // Adjust canvas size based on available space
-    function adjustCanvasSize() {
-        const gameArea = document.getElementById("gameArea");
-        canvas.width = gameArea.clientWidth;
-        canvas.height = gameArea.clientHeight * 1.8; 
-        snakePosX = Math.floor(canvas.width / 2 / tileSize) * tileSize;
-        snakePosY = Math.floor(canvas.height / 2 / tileSize) * tileSize;
-    }
-    
-    adjustCanvasSize();
-    window.addEventListener("resize", adjustCanvasSize);
 
-    window.addEventListener("click", () => {
-        if (!gameIsRunning) {
-            gameIsRunning = true;
-            gameLoop();
-        }
+
+    // Start game on canvas click
+    canvas.addEventListener("click", () => {
+        if (!gameIsRunning && !gameStarted) {
+            startGame();
+            }
     });
+
+    function startGame(){
+        score = 0;
+        title.textContent = score;
+        snakePosX = 0;
+        snakePosY = 0;
+        velocityX = 1;
+        velocityY = 0;
+        tail = [];
+        snakeLength = 4;
+        gameIsRunning = true;
+        gameStarted = true;
+        restartButton.style.display = "none";
+        resetFood();
+        gameLoop();
+    }
+
+
 
     function gameLoop() {
         if (gameIsRunning) {
@@ -45,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     resetFood();
-    gameLoop();
     
     function moveStuff() {
         snakePosX += snakeSpeed * velocityX;
@@ -97,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function gameOver() {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
+        restartButton.style.display = "block"; 
     }
     
     document.addEventListener("keydown", keyPush);
@@ -163,10 +172,16 @@ document.addEventListener("DOMContentLoaded", () => {
             velocityY = 1;
         }
     }
+    var restartBtn = document.getElementById("restartButton");
+restartBtn.onclick = function() {
+    restart();
+};
     
     function restart() {
-        if (!gameIsRunning) location.reload();
-    }
+        if (!gameIsRunning){
+            startGame();
+        } 
+    };
     
     function drawGrid() {
         for (let i = 0; i < canvas.width / tileSize; i++) {

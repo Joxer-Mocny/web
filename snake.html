@@ -7,17 +7,13 @@
     <link rel="stylesheet" href="snake.css">
 </head>
 <body>
-    <div id="gameArea" class="bigScreen">
-        <canvas></canvas>
+    <div id="gameArea" >
+        <canvas widht="600" height="300"></canvas>
     </div>
-    <h1>click to start 0 use arrows</h1>
-    <div class="btn">
-        <button class="btnL" onclick="moveleft()">LEFT</button>
-        <button class="btnU" onclick="moveup()">UP</button>
-        <button class="btnRes" onclick="restart()">Restart</button>
-        <button class="btnD" onclick="movedown()">DOWN</button>
-        <button class="btnR" onclick="moveright()">RIGHT</button>
-    </div>
+    <button id="restartButton"> Restart </button>
+    <h1>Click in the square and use arrows</h1>
+
     <script src="snake.js"></script>
 </body>
 </html>
+
