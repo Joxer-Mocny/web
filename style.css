@@ -1,11 +1,23 @@
+/* General Styles */
+body {
+  background-image: url("../web/image/v882-aew-51-b.jpg"); /* Replace with the path to your image */
+  background-size: cover; /* Ensure the image covers the entire page */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Parallax effect */
+  background-position: center top; /* Start the background at the top center */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff; /* Set default text color to white */
+
 /* Header */
 header {
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.8); /* Transparent background */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.7); /* Black transparent background */
+  color: #fff; /* White font color */
+  box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5); /* Grey shadow */
   z-index: 1000;
   padding: 10px 0;
   transition: background 0.3s;
@@ -27,30 +39,56 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #fff; /* White font color */
   padding: 10px 15px;
   border-radius: 5px;
   transition: background 0.3s, color 0.3s;
 }
 
 nav ul li a:hover {
-  background: #333;
+  background: #555; /* Darker background on hover */
   color: #fff;
 }
 
-/* On hover, make the header solid */
-header:hover {
-  background: #fff;
+/* Container for sections */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px; /* Add top margin to prevent content from being hidden behind fixed header */
 }
 
 /* Section styles */
 section {
-  background: #fff;
-  margin: 10px 0;
+  width: 35%; /* Make sections less wide */
+  margin: 30px 0; /* Add more space between sections */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 80px; /* Add top margin to prevent content from being hidden behind fixed header */
+  background: rgba(0, 0, 0, 0.7); /* Black transparent background */
+  color: #fff; /* White font color */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+  box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5); /* Grey shadow */
+}
+
+/* Alternating left and right */
+section:nth-of-type(odd) {
+  align-self: flex-start;
+}
+
+section:nth-of-type(even) {
+  align-self: flex-end;
+}
+
+/* Hide content initially */
+section .content {
+  display: none;
+}
+
+/* Show content on hover */
+section:hover .content {
+  display: block;
 }
 
 /* Modal Styling */
@@ -73,7 +111,6 @@ section {
   padding: 10px;
   border: 1px solid #888;
   width: 30%;
-
   height: 80%;
   display: flex;
   flex-direction: column;
@@ -108,4 +145,3 @@ section {
   height: 100%;
   border: 0;
 }
-

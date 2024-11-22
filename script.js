@@ -1,14 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links and center sections
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
+            const target = document.querySelector(this.getAttribute('href'));
+            const headerOffset = document.querySelector('header').offsetHeight;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset - (window.innerHeight / 2) + (target.offsetHeight / 2);
+
+            window.scrollTo({
+                top: offsetPosition,
                 behavior: 'smooth'
             });
         });
     });
 
+    // Parallax scrolling effect
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+        document.body.style.backgroundPositionY = `${(scrollPosition * 0.5) - (window.innerHeight / 2)}px`; // Adjust the multiplier as needed for effect
+    });
     // Get the modal
     var modal = document.getElementById("modal");
 
