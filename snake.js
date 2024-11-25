@@ -83,11 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     function drawStuff() {
-        rectangle("#aaaaaa", 0, 0, canvas.width, canvas.height);
+        rectangle("black", 0, 0, canvas.width, canvas.height);
         drawGrid();
         rectangle("silver", foodPosX, foodPosY, tileSize, tileSize);
-        tail.forEach((snakePart) => rectangle("#2a623d", snakePart.x, snakePart.y, tileSize, tileSize));
-        rectangle("green", snakePosX, snakePosY, tileSize, tileSize);
+        tail.forEach((snakePart) => rectangle("silver", snakePart.x, snakePart.y, tileSize, tileSize));
+        rectangle("silver", snakePosX, snakePosY, tileSize, tileSize);
     }
     
     function rectangle(color, x, y, width, height) {
@@ -186,7 +186,9 @@ restartBtn.onclick = function() {
     function drawGrid() {
         for (let i = 0; i < canvas.width / tileSize; i++) {
             for (let j = 0; j < canvas.height / tileSize; j++) {
-                rectangle("#1a472a", i * tileSize, j * tileSize, tileSize - 1, tileSize - 1);
+                rectangle("black", i * tileSize, j * tileSize, tileSize - 1, tileSize - 1);
+                ctx.strokeStyle = "white";
+                ctx.strokeRect(i*tileSize,j * tileSize,tileSize,tileSize);
             }
         }
     }

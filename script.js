@@ -15,11 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Parallax scrolling effect
-    window.addEventListener('scroll', function() {
-        const scrollPosition = window.scrollY;
-        document.body.style.backgroundPositionY = `${(scrollPosition * 0.5) - (window.innerHeight / 2)}px`; // Adjust the multiplier as needed for effect
-    });
+
     // Get the modal
     var modal = document.getElementById("modal");
 
@@ -80,4 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
         }
     }
+
+    // Parallax effect
+    window.addEventListener('scroll', function() {
+        const scrolled = window.scrollY;
+        document.body.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+    });
+    
 });
