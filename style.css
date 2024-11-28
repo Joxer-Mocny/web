@@ -1,148 +1,203 @@
+/* Root Variables */
+:root {
+  --primary-bg-color: #000;
+  --primary-text-color: #fff;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --hover-bg-color: rgba(255, 255, 255, 0.1);
+  --section-spacing: 75vh; /* Adjusted to use viewport height */
+}
+
 /* General Styles */
 body {
-  background-image: url("../web/image/v882-aew-51-b.jpg"); /* Replace with the path to your image */
-  background-size: cover; /* Ensure the image covers the entire page */
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* Parallax effect */
-  background-position: center top; /* Start the background at the top center */
-  margin: 0;
   font-family: Arial, sans-serif;
-  color: #fff; /* Set default text color to white */
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  background-image: url('../web/image/cover2.png'); /* Update with the actual URL */
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
-/* Header */
-header {
+h2 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+a {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
+/* Navigation */
+nav {
   position: fixed;
   width: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.7); /* Black transparent background */
-  color: #fff; /* White font color */
-  box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5); /* Grey shadow */
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
   z-index: 1000;
-  padding: 10px 0;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
-/* Navigation Menu */
+nav:hover {
+  background-color: rgba(0, 0, 0, 1);
+}
+
 nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
 }
 
-nav ul li {
-  margin: 0 10px;
+nav li {
+  margin: 10px 0;
 }
 
-nav ul li a {
-  text-decoration: none;
-  color: #fff; /* White font color */
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background 0.3s, color 0.3s;
+nav a:hover {
+  color: var(--secondary-text-color);
 }
 
-nav ul li a:hover {
-  background: #555; /* Darker background on hover */
-  color: #fff;
+/* Desktop Navigation */
+@media screen and (min-width: 769px) {
+  nav ul {
+      flex-direction: row;
+      justify-content: center;
+  }
+
+  nav li {
+      margin: 0 15px;
+  }
 }
 
-/* Container for sections */
+/* Container */
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 100px; /* Add top margin to prevent content from being hidden behind fixed header */
+  padding-top: 70px;
 }
 
-/* Section styles */
+/* Sections */
 section {
-  width: 35%; /* Make sections less wide */
-  margin: 30px 0; /* Add more space between sections */
+  width: 45%; /* Adjust to fit into one half with some spacing */
   padding: 20px;
+  margin-top: var(--section-spacing);
+  backdrop-filter: opacity(0.85);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.section-left {
+  align-self: flex-start; /* Align left sections to the left */
+}
+
+.section-right {
+  align-self: flex-end; /* Align right sections to the right */
+}
+
+.content {
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.7); /* Black transparent background */
-  color: #fff; /* White font color */
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s;
-  box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5); /* Grey shadow */
 }
 
-/* Alternating left and right */
-section:nth-of-type(odd) {
-  align-self: flex-start;
-}
-
-section:nth-of-type(even) {
-  align-self: flex-end;
-}
-
-/* Hide content initially */
-section .content {
-  display: none;
-}
-
-/* Show content on hover */
-section:hover .content {
-  display: block;
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
 }
 
 /* Modal Styling */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1001;
+  z-index: 2000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding-top: 60px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 0% auto;
-  padding: 10px;
-  border: 1px solid #888;
-  width: 30%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin: 10% auto;
+  padding: 20px;
+  background: #333;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
 }
 
 .close {
-  color: #aaa;
+  color: #fff;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #bbb;
   text-decoration: none;
-  cursor: pointer;
 }
 
-#gameContainer {
+/* Footer */
+footer {
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var(--primary-text-color);
 }
 
-#gameContainer iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  nav ul {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  nav li {
+      margin: 10px 0;
+  }
+
+  .modal-content {
+      width: 95%;
+  }
+
+  .container {
+      display: block;
+  }
+
+  section {
+      width: 80%;
+      margin: 20px auto;
+      align-self: center;
+  }
 }
