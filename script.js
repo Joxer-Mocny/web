@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
     // Get the modal
     var modal = document.getElementById("modal");
 
@@ -51,8 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to load the game
     function loadGame() {
         var gameContainer = document.getElementById("gameContainer");
-        gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0"></iframe>';
+        gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
     }
+    
 
     // Function to unload the game
     function unloadGame() {
