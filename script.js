@@ -50,9 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to load the game
     function loadGame() {
         var gameContainer = document.getElementById("gameContainer");
-        gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        if (window.innerWidth >= 769) { // PC screen
+            gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        } else { // Mobile screen
+            gameContainer.innerHTML = '<iframe src="snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        }
     }
-    
 
     // Function to unload the game
     function unloadGame() {
@@ -82,5 +85,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrolled = window.scrollY;
         document.body.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
     });
-    
 });
