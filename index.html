@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <button class="menu-button" id="menuButton">&#9776; Menu</button>
+        <button class="menu-button" id="menuButton">Menu</button>
         <nav id="navMenu">
             <ul>
                 <li><a href="#about">About Me</a></li>
@@ -24,18 +24,20 @@
         </nav>
     </header>
     
-    
     <div class="container">
         <!-- About -->
-        <section id="about" class="section-left">
+        <section id="about" class="section-left" data-section-id="about">
             <h2>About Me</h2>
             <div class="content">
-                <p>Este daco vydumem</p>
+                <p>Two and a half year I worked for Telekom. While taking my web developer courses I found my calling in this area. Working as a
+                    train operator I learned how to handle stress in difficult situations. This work required big responsibility. I think of myself as a
+                    team player. I have learned that in my previous jobs and in my hobby (historical fencing and archery).
+                    I am interested in computers and learning about new technologies. Now I am working at Tietoevry as fullstack developer.</p>
             </div>
         </section>
 
         <!-- Front-End -->
-        <section id="frontend" class="section-right">
+        <section id="frontend" class="section-right" data-section-id="frontend">
             <h2>Front-End</h2>
             <div class="content">
                 <ul>
@@ -44,72 +46,103 @@
                     <li>JavaScript</li>
                     <li>TypeScript</li>
                     <li>Angular</li>
+                    <li>Apache Wicket</li>
                 </ul>
             </div>
         </section>
 
         <!-- Back-End -->
-        <section id="backend" class="section-left">
+        <section id="backend" class="section-left"data-section-id="backend">
             <h2>Back-End</h2>
             <div class="content">
                 <ul>
                     <li>Java</li>
                     <li>Spring</li>
                     <li>Spring Boot</li>
-                    <li>Maven</li>
                 </ul>
             </div>
         </section>
 
         <!-- Database -->
-        <section id="database" class="section-right">
+        <section id="database" class="section-right" data-section-id="database">
             <h2>Database</h2>
             <div class="content">
                 <ul>
                     <li>SQL</li>
+                    <li>noSQL</li>
                 </ul>
             </div>
         </section>
 
         <!-- Other -->
-        <section id="other" class="section-left">
+        <section id="other" class="section-left" data-section-id="other">
             <h2>Other</h2>
             <div class="content">
                 <ul>
                     <li>Git</li>
                     <li>Apache Tomcat</li>
-                    <li>Apache Wicket</li>
                     <li>XHTML</li>
                     <li>Python</li>
+                    <li>Maven</li>
+                    <li>Json</li>
                 </ul>
             </div>
         </section>
 
         <!-- Experience -->
-        <section id="experience" class="section-right">
+        <section id="experience" class="section-right" data-section-id="experience">
             <h2>Experience</h2>
             <div class="content">
                 <h3>T-systems</h3>
-                <p>As a full stack developer, I was working on a hospital application. On backend there was java 8 and frontend was framework called Apache wicked.
-                We had few libraries in javascript for formatting text pdf in application. We were using sql database, server was on tomcat...</p>
+                <P>As a full stack developer I was working on a hospital application. On backend there was java 8 and frontend was framework called Apache wicked.
+                    We had few libraries in javascript for formatting text pdf in application. We where using sql database, server was on tomcat.I was working in IntelliJ
+                    idea and Jira was used for task management. My role was doing development, maintenance and write test.</P>
                 <h3>Tieto evry</h3>
-                <p>As a full stack developer, I am working on a hospital application for region Stockholm. I am working with java 17 and frontend framework JSF. We are
-                using gradle to build the project and tomcat as a server. Database is on Microsoft SQL server...</p>
+                <p>As full stack developer I am working on hospital application for region Stockholm. I am working whit java 17 and frontend framework JSF. We are
+                    using gradle to build project and tomcat as a server. Database is on microsoft sql server. I am using IntelliJ idea and jira for task management. My
+                    role is to do development and maintenance.</p>
             </div>
         </section>
 
         <!-- Education -->
-        <section id="education" class="section-left">
+        <section id="education" class="section-left" data-section-id="education">
             <h2>Education</h2>
             <div class="content">
                 <p>
                     Complete course: Web Designer, Programmer and Designer
-                    of websites from the company
-                </p>
-                <p><a href="https://www.itlearning.sk/" target="_blank">IT Learning Slovakia</a></p>
-                <div class="courses">
-                    <p>Creation, programming of websites I...</p>
-                </div>
+                    of website from the company
+                  </p>
+                  <p><a href="https://www.itlearning.sk/" target="_blank"> IT Learning Slovakia</a></p>
+                  
+                  <p>
+                    Creation, programming of websites I. - basics of HTML and CSS,
+                    introduction to JavaScript and PHP
+                  </p>
+                  <p>
+                    Website design, programming II. - Advanced HTML, CSS and modern web
+                    design
+                  </p>
+                  <p>
+                    Website design, programming III. - HTML and CSS expert, advanced
+                    selectors, media and forms
+                  </p>
+                  <p>
+                    Website design, programming IV. - responsive design, media rules, flex
+                    and grid layout
+                  </p>
+                  <p>
+                    Website design, programming V. - jQuery, interactivity and introduction
+                    to JavaScript
+                  </p>
+                  <p>
+                    JSON JavaScript course and data, advanced language options and
+                    constructions
+                  </p>
+                    <p>
+                      T-Systems bootcamp: Full-stack developer (Software architecture, HTTPS,
+                      SQL, NoSQL, cloud, Docker, Kubernetes, OOP, Postman, Git, Java, Springboot,
+                      HTML, CSS, Javascript, Typescript, Angular, Bootstrap, Material)
+                    </p>
             </div>
         </section>
 
@@ -123,7 +156,7 @@
         </section>
 
         <!-- Contact -->
-        <section id="contact" class="section-left">
+        <section id="contact" class="section-left" data-section-id="contact">
             <h2>Contact</h2>
             <div class="content">
                 <p>In case of a job offer, do not hesitate to contact me.</p>
@@ -138,10 +171,9 @@
     </div>
 
     <footer>
-        <p>I have made it!!!</p>
+        <p><a href="cv/Filip_Trcka_en_CV.pdf" target="_blank">Download my CV</a></p>
     </footer>
 
-    <!-- Modal Structure -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>

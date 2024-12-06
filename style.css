@@ -14,7 +14,7 @@ body {
   padding: 0;
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  background-image: url('../web/image/cover2.png'); /* Update with the actual URL */
+  background-image: url("../web/image/cover2.png"); /* Update with the actual URL */
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
@@ -27,6 +27,27 @@ h2 {
 a {
   color: var(--primary-text-color);
   text-decoration: none;
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-text-color);
+  left: 0;
+  bottom: -2px;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+a:hover::after {
+  transform: scaleX(1);
+}
+
+a:hover {
+  color: var(--secondary-text-color);
 }
 
 /* Navigation */
@@ -55,19 +76,15 @@ nav li {
   margin: 10px 0;
 }
 
-nav a:hover {
-  color: var(--secondary-text-color);
-}
-
 /* Desktop Navigation */
 @media screen and (min-width: 769px) {
   nav ul {
-      flex-direction: row;
-      justify-content: center;
+    flex-direction: row;
+    justify-content: center;
   }
 
   nav li {
-      margin: 0 15px;
+    margin: 0 15px;
   }
 }
 
@@ -175,6 +192,7 @@ ul {
   color: #bbb;
   text-decoration: none;
 }
+
 .menu-button {
   display: none;
   background-color: transparent;
@@ -225,27 +243,31 @@ footer {
     flex-direction: column;
   }
 
-
   nav li {
-      margin: 10px 0;
+    margin: 10px 0;
   }
 
   .modal-content {
-      width: 95vw;
-      height: 80vh;
+    width: 95vw;
+    height: 80vh;
   }
 
   .container {
-      display: block;
+    display: block;
   }
 
   section {
-      width: 80%;
-      margin: 20px auto;
-      align-self: center;
+    width: 80%;
+    margin: 20px auto;
+    align-self: center;
   }
 
   .gameContainer {
     width: 100%;
   }
+}
+
+/* Adjusting the last section to be above the footer */
+#contact {
+  margin-bottom: 150px; /* Adjust the value as needed to ensure it's above the footer */
 }
