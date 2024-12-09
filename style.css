@@ -22,6 +22,7 @@ body {
 
 h2 {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer; /* Indicate that the title is clickable */
 }
 
 a {
@@ -265,9 +266,38 @@ footer {
   .gameContainer {
     width: 100%;
   }
+
+  .content {
+    display: none; /* Hide the content by default on mobile */
+  }
+
+  .content.visible {
+    display: block; /* Show the content when the section is clicked */
+  }
 }
 
 /* Adjusting the last section to be above the footer */
 #contact {
   margin-bottom: 150px; /* Adjust the value as needed to ensure it's above the footer */
+}
+
+/* Modal Styling for Mobile Content */
+#contentModal .modal-content {
+    width: 95vw;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+#contentModal .close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#contentModal .close:hover,
+#contentModal .close:focus {
+    color: #bbb;
+    text-decoration: none;
 }

@@ -85,4 +85,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrolled = window.scrollY;
         document.body.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
     });
+
+    // Mobile specific code
+    if (window.innerWidth <= 768) {
+        document.querySelectorAll('section .content').forEach(content => {
+            content.style.display = 'none'; // Hide content by default on mobile
+        });
+
+        document.querySelectorAll('section h2').forEach(title => {
+            title.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    document.querySelectorAll('section .content').forEach(c => c.style.display = 'none');
+                    content.style.display = 'block';
+                }
+            });
+        });
+    }
 });
