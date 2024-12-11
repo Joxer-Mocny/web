@@ -86,6 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
     });
 
+    const menuButton = document.getElementById("menuButton");
+    const navMenu = document.getElementById("navMenu");
+
     // Mobile specific code
     if (window.innerWidth <= 768) {
         document.querySelectorAll('section .content').forEach(content => {
@@ -101,6 +104,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelectorAll('section .content').forEach(c => c.style.display = 'none');
                     content.style.display = 'block';
                 }
+            });
+        });
+
+        // Toggle menu visibility
+        menuButton.addEventListener("click", () => {
+            if (navMenu.style.display === "block") {
+                navMenu.style.display = "none";
+            } else {
+                navMenu.style.display = "block";
+            }
+        });
+
+        // Add click events to menu items to collapse after selection
+        navMenu.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                navMenu.style.display = 'none';
             });
         });
     }
