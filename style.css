@@ -14,7 +14,7 @@ body {
   padding: 0;
   background-color: var(--primary-bg-color);
   color: var(--primary-text-color);
-  background-image: url("../web/image/cover2.png"); /* Update with the actual URL */
+  background-image: url("image/cover2.png"); /* Update with the actual URL */
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
@@ -225,7 +225,7 @@ footer {
     display: block; /* Show menu button on mobile */
     position: fixed;
     top: 10px;
-    left: 10px;
+    right: 10px;
     z-index: 1001;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
@@ -249,7 +249,7 @@ footer {
   }
 
   .modal-content {
-    width: 95vw;
+    width: 80vw;
     height: 80vh;
   }
 
@@ -283,7 +283,7 @@ footer {
 
 /* Modal Styling for Mobile Content */
 #contentModal .modal-content {
-    width: 95vw;
+    width: 80vw;
     height: 80vh;
     overflow-y: auto;
 }

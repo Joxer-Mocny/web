@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const downButton = document.getElementById("downButton");
     const leftButton = document.getElementById("leftButton");
     const rightButton = document.getElementById("rightButton");
+    const mobileControls = document.getElementById("mobileControls");
 
     let tileSize = 20;
     let snakeSpeed = tileSize;
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let foodPosY = 0;
     let gameIsRunning = false;
     let gameStarted = false; 
-    let fps = 15;
+    let fps = 10;
     let score = 0;
 
     // Start game on canvas click
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    function startGame(){
+    function startGame() {
         score = 0;
         title.textContent = score;
         snakePosX = 0;
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gameIsRunning = true;
         gameStarted = true;
         restartButton.style.display = "none";
+        mobileControls.style.display = "flex"; // Show mobile controls
         resetFood();
         gameLoop();
     }
@@ -106,7 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function gameOver() {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
-        restartButton.style.display = "block"; 
+        restartButton.style.display = "block";
+        mobileControls.style.display = "none"; // Hide mobile controls on game over
     }
 
     document.addEventListener("keydown", keyPush);

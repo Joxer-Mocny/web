@@ -51,7 +51,6 @@ h2 strong {
 
 .btn {
   display: none;
-  /* Optionally, add styles here if you plan to use buttons in the future */
 }
 
 #restartButton {
@@ -64,18 +63,18 @@ h2 strong {
 
 /* Mobile Controls Styling */
 #mobileControls {
-  display: flex;
+  display: none; /* Initially hidden */
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 #mobileControls button {
   background-color: #000;
   color: #fff;
   border: 2px solid #fff;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 5px 10px;
+  margin: 3px;
   font-size: 1.5em;
   cursor: pointer;
   border-radius: 10px;
@@ -91,4 +90,3 @@ h2 strong {
   display: flex;
   justify-content: center;
 }
-
