@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
-    const upButton = document.getElementById("upButton");
-    const downButton = document.getElementById("downButton");
-    const leftButton = document.getElementById("leftButton");
-    const rightButton = document.getElementById("rightButton");
-    const mobileControls = document.getElementById("mobileControls");
+
+    if (!canvas || !ctx || !title || !restartButton) {
+        console.error("Required elements are missing from the DOM");
+        return;
+    }
 
     let tileSize = 20;
     let snakeSpeed = tileSize;
@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         gameIsRunning = true;
         gameStarted = true;
         restartButton.style.display = "none";
-        mobileControls.style.display = "flex"; // Show mobile controls
         resetFood();
         gameLoop();
     }
@@ -55,8 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(gameLoop, 1000 / fps);
         }
     }
-
-    resetFood();
 
     function moveStuff() {
         snakePosX += snakeSpeed * velocityX;
@@ -109,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
-        mobileControls.style.display = "none"; // Hide mobile controls on game over
     }
 
     document.addEventListener("keydown", keyPush);
@@ -149,43 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function moveleft() {
-        if (velocityX !== 1) {
-            velocityX = -1;
-            velocityY = 0;
-        }
-    }
-
-    function moveup() {
-        if (velocityY !== 1) {
-            velocityX = 0;
-            velocityY = -1;
-        }
-    }
-
-    function moveright() {
-        if (velocityX !== -1) {
-            velocityX = 1;
-            velocityY = 0;
-        }
-    }
-
-    function movedown() {
-        if (velocityY !== -1) {
-            velocityX = 0;
-            velocityY = 1;
-        }
-    }
-
-    var restartBtn = document.getElementById("restartButton");
+    const restartBtn = document.getElementById("restartButton");
     restartBtn.onclick = function() {
-        restart();
-    };
-
-    function restart() {
-        if (!gameIsRunning){
+        if (!gameIsRunning) {
             startGame();
-        } 
+        }
     };
 
     function drawGrid() {
@@ -197,10 +161,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-
-    // Event Listeners for Mobile Controls
-    upButton.addEventListener("click", moveup);
-    downButton.addEventListener("click", movedown);
-    leftButton.addEventListener("click", moveleft);
-    rightButton.addEventListener("click", moveright);
 });
