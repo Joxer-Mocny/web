@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rightButton = document.getElementById("rightButton");
     const mobileControls = document.getElementById("mobileControls");
 
-    let tileSize = 20;
+    let tileSize = 15;
     let snakeSpeed = tileSize;
     let snakePosX = 0;
     let snakePosY = 0;
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let foodPosY = 0;
     let gameIsRunning = false;
     let gameStarted = false; 
-    let fps = 10;
+    let fps = 5;
     let score = 0;
 
     // Start game on canvas click
