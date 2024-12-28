@@ -101,14 +101,15 @@ section {
   width: 45%; /* Adjust to fit into one half with some spacing */
   padding: 20px;
   margin-top: var(--section-spacing);
-  backdrop-filter: opacity(0.85);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: opacity(0.9);
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 section:hover {
   transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
 }
 
 .section-left {
