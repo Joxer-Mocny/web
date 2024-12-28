@@ -5,10 +5,10 @@
   --secondary-text-color: rgba(255, 255, 255, 0.7); /* Secondary text color for hover effects */
   --hover-bg-color: rgba(255, 255, 255, 0.1); /* Background color for hover effects */
   --section-spacing: 75vh; /* Vertical spacing between sections using viewport height */
- }
- 
- /* General Styles */
- body {
+}
+
+/* General Styles */
+body {
   font-family: Arial, sans-serif; /* Set default font */
   margin: 0;
   padding: 0;
@@ -18,20 +18,20 @@
   background-attachment: fixed; /* Fix background image position */
   background-size: cover; /* Cover entire background */
   background-repeat: no-repeat; /* Prevent background repetition */
- }
- 
- h2 {
+}
+
+h2 {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow to headings */
   cursor: pointer; /* Indicate headings are clickable */
- }
- 
- a {
+}
+
+a {
   color: var(--primary-text-color); /* Link color */
   text-decoration: none; /* Remove underline from links */
   position: relative; /* Position for pseudo-element */
- }
- 
- a::after {
+}
+
+a::after {
   content: ''; /* Decorative line under links */
   position: absolute;
   width: 100%;
@@ -41,63 +41,63 @@
   bottom: -2px;
   transform: scaleX(0); /* Initially hidden */
   transition: transform 0.3s ease; /* Smooth transition */
- }
- 
- a:hover::after {
+}
+
+a:hover::after {
   transform: scaleX(1); /* Show line on hover */
- }
- 
- a:hover {
+}
+
+a:hover {
   color: var(--secondary-text-color); /* Change text color on hover */
- }
- 
- /* Navigation */
- nav {
+}
+
+/* Navigation */
+nav {
   position: fixed; /* Fix navigation at the top */
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
   backdrop-filter: blur(10px); /* Blur effect */
   z-index: 1000; /* Ensure it stays on top */
   transition: background-color 0.3s; /* Smooth background transition */
- }
- 
- nav:hover {
+}
+
+nav:hover {
   background-color: rgba(0, 0, 0, 1); /* Darken background on hover */
- }
- 
- nav ul {
+}
+
+nav ul {
   display: flex;
   flex-direction: column; /* Stack items vertically */
   list-style: none; /* Remove list bullets */
   padding: 10px;
   margin: 0;
- }
- 
- nav li {
+}
+
+nav li {
   margin: 10px 0; /* Space between items */
- }
- 
- /* Desktop Navigation */
- @media screen and (min-width: 769px) {
+}
+
+/* Desktop Navigation */
+@media screen and (min-width: 769px) {
   nav ul {
     flex-direction: row; /* Arrange items horizontally */
     justify-content: center; /* Center items */
   }
- 
+
   nav li {
     margin: 0 15px; /* Horizontal spacing */
   }
- }
- 
- /* Container */
- .container {
+}
+
+/* Container */
+.container {
   display: flex;
   flex-direction: column; /* Stack sections vertically */
   padding-top: 70px; /* Space for fixed header */
- }
- 
- /* Sections */
- section {
+}
+
+/* Sections */
+section {
   width: 45%; /* Width of each section */
   padding: 20px;
   margin-top: var(--section-spacing); /* Vertical spacing */
@@ -105,49 +105,49 @@
   background-color: rgba(0, 0, 0, 0.7); /* Section background */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Shadow effect */
   transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
- }
- 
- section:hover {
+}
+
+section:hover {
   transform: scale(1.02); /* Slightly enlarge on hover */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
- }
- 
- .section-left {
+}
+
+.section-left {
   align-self: flex-start; /* Align to the left */
- }
- 
- .section-right {
+}
+
+.section-right {
   align-self: flex-end; /* Align to the right */
- }
- 
- .content {
+}
+
+.content {
   margin-top: 20px; /* Space above content */
- }
- 
- ul {
+}
+
+ul {
   list-style-type: disc; /* Bullet points for lists */
- }
- 
- /* Scrollbar Customization */
- ::-webkit-scrollbar {
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
   width: 10px; /* Width of scrollbar */
- }
- 
- ::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-track {
   background: #000; /* Track color */
- }
- 
- ::-webkit-scrollbar-thumb {
+}
+
+::-webkit-scrollbar-thumb {
   background: #555; /* Thumb color */
   border-radius: 8px; /* Rounded corners */
- }
- 
- ::-webkit-scrollbar-thumb:hover {
+}
+
+::-webkit-scrollbar-thumb:hover {
   background: #888; /* Thumb color on hover */
- }
- 
- /* Modal Styling */
- .modal {
+}
+
+/* Modal Styling */
+.modal {
   display: none; /* Hidden by default */
   position: fixed;
   z-index: 2000; /* On top of other elements */
@@ -157,9 +157,9 @@
   height: 100%;
   overflow: auto; /* Scrollable if needed */
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
- }
- 
- .modal-content {
+}
+
+.modal-content {
   margin: 5vh auto; /* Centered vertically */
   padding: 20px;
   background: #333; /* Modal background */
@@ -169,43 +169,43 @@
   max-width: 900px; /* Maximum width */
   height: 80vh; /* Height relative to viewport */
   overflow: hidden; /* Prevent overflow */
- }
- 
- #gameContainer {
+}
+
+#gameContainer {
   width: 100%;
   height: 100%;
- }
- 
- #gameContainer iframe {
+}
+
+#gameContainer iframe {
   width: 100%;
   height: 100%;
- }
- 
- .close {
+}
+
+.close {
   color: #fff; /* Close button color */
   float: right; /* Align to the right */
   font-size: 28px; /* Font size */
   font-weight: bold; /* Bold text */
   cursor: pointer; /* Pointer cursor */
- }
- 
- .close:hover,
- .close:focus {
+}
+
+.close:hover,
+.close:focus {
   color: #bbb; /* Color on hover/focus */
   text-decoration: none; /* Remove underline */
- }
- 
- .menu-button {
+}
+
+.menu-button {
   display: none; /* Hidden by default */
   background-color: transparent; /* Transparent background */
   border: none; /* No border */
   color: var(--primary-text-color); /* Text color */
   font-size: 20px; /* Font size */
   cursor: pointer; /* Pointer cursor */
- }
- 
- /* Footer */
- footer {
+}
+
+/* Footer */
+footer {
   background-color: rgba(0, 0, 0, 0.7); /* Footer background */
   text-align: center; /* Center text */
   padding: 20px; /* Padding around text */
@@ -214,248 +214,16 @@
   bottom: 0;
   width: 100%; /* Full width */
   color: var(--primary-text-color); /* Text color */
- }
- 
- /* Responsive Design */
- @media screen and (max-width: 768px) {
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
   nav {
     display: none; /* Hide nav on mobile */
   }
- 
+
   .menu-button {
     display: block; /* Show menu button on mobile */
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    Here's a nicely commented version of your CSS code:
- 
- ```css
- /* Root Variables for consistent theming */
- :root {
-  --primary-bg-color: #000; /* Primary background color */
-  --primary-text-color: #fff; /* Primary text color */
-  --secondary-text-color: rgba(255, 255, 255, 0.7); /* Secondary text color for hover effects */
-  --hover-bg-color: rgba(255, 255, 255, 0.1); /* Background color for hover effects */
-  --section-spacing: 75vh; /* Vertical spacing between sections */
- }
- 
- /* General Styles */
- body {
-  font-family: Arial, sans-serif; /* Default font family */
-  margin: 0;
-  padding: 0;
-  background-color: var(--primary-bg-color); /* Use primary background color */
-  color: var(--primary-text-color); /* Use primary text color */
-  background-image: url("image/cover2.png"); /* Background image */
-  background-attachment: fixed; /* Fixed background for parallax effect */
-  background-size: cover; /* Cover the entire background */
-  background-repeat: no-repeat; /* No repeat for background image */
- }
- 
- h2 {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow to headings */
-  cursor: pointer; /* Indicate headings are clickable */
- }
- 
- a {
-  color: var(--primary-text-color); /* Link color */
-  text-decoration: none; /* Remove underline from links */
-  position: relative; /* Position for pseudo-element */
- }
- 
- a::after {
-  content: ''; /* Decorative underline */
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background-color: var(--primary-text-color);
-  left: 0;
-  bottom: -2px;
-  transform: scaleX(0); /* Start with no underline */
-  transition: transform 0.3s ease; /* Smooth transition */
- }
- 
- a:hover::after {
-  transform: scaleX(1); /* Expand underline on hover */
- }
- 
- a:hover {
-  color: var(--secondary-text-color); /* Change color on hover */
- }
- 
- /* Navigation Styles */
- nav {
-  position: fixed; /* Fixed position for sticky nav */
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-  backdrop-filter: blur(10px); /* Blur effect */
-  z-index: 1000; /* Ensure nav is on top */
-  transition: background-color 0.3s; /* Smooth background transition */
- }
- 
- nav:hover {
-  background-color: rgba(0, 0, 0, 1); /* Solid background on hover */
- }
- 
- nav ul {
-  display: flex;
-  flex-direction: column; /* Vertical list on small screens */
-  list-style: none; /* Remove bullet points */
-  padding: 10px;
-  margin: 0;
- }
- 
- nav li {
-  margin: 10px 0; /* Spacing between items */
- }
- 
- /* Desktop Navigation */
- @media screen and (min-width: 769px) {
-  nav ul {
-    flex-direction: row; /* Horizontal list on larger screens */
-    justify-content: center; /* Center items */
-  }
- 
-  nav li {
-    margin: 0 15px; /* Horizontal spacing */
-  }
- }
- 
- /* Container for sections */
- .container {
-  display: flex;
-  flex-direction: column;
-  padding-top: 70px; /* Space for fixed nav */
- }
- 
- /* Section Styles */
- section {
-  width: 45%; /* Width for sections */
-  padding: 20px;
-  margin-top: var(--section-spacing); /* Vertical spacing */
-  backdrop-filter: opacity(0.9); /* Slight transparency */
-  background-color: rgba(0, 0, 0, 0.7); /* Background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Shadow effect */
-  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
- }
- 
- section:hover {
-  transform: scale(1.02); /* Slight scale on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Enhanced shadow on hover */
- }
- 
- .section-left {
-  align-self: flex-start; /* Align left sections */
- }
- 
- .section-right {
-  align-self: flex-end; /* Align right sections */
- }
- 
- .content {
-  margin-top: 20px; /* Spacing for content */
- }
- 
- ul {
-  list-style-type: disc; /* Bullet points for lists */
- }
- 
- /* Custom Scrollbar */
- ::-webkit-scrollbar {
-  width: 10px; /* Width of scrollbar */
- }
- 
- ::-webkit-scrollbar-track {
-  background: #000; /* Track color */
- }
- 
- ::-webkit-scrollbar-thumb {
-  background: #555; /* Thumb color */
-  border-radius: 8px; /* Rounded corners */
- }
- 
- ::-webkit-scrollbar-thumb:hover {
-  background: #888; /* Hover color */
- }
- 
- /* Modal Styles */
- .modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 2000; /* On top of other elements */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* Scrollable if needed */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
- }
- 
- .modal-content {
-  margin: 5vh auto; /* Centered vertically */
-  padding: 20px;
-  background: #333; /* Modal background */
-  border: 1px solid #fff; /* Border color */
-  border-radius: 10px; /* Rounded corners */
-  width: 80vw; /* Responsive width */
-  max-width: 900px; /* Max width */
-  height: 80vh; /* Responsive height */
-  overflow: hidden; /* Prevent overflow */
- }
- 
- #gameContainer {
-  width: 100%;
-  height: 100%;
- }
- 
- #gameContainer iframe {
-  width: 100%;
-  height: 100%;
- }
- 
- .close {
-  color: #fff; /* Close button color */
-  float: right; /* Align to right */
-  font-size: 28px; /* Font size */
-  font-weight: bold; /* Bold text */
-  cursor: pointer; /* Pointer cursor */
- }
- 
- .close:hover,
- .close:focus {
-  color: #bbb; /* Hover and focus color */
-  text-decoration: none; /* No underline */
- }
- 
- .menu-button {
-  display: none; /* Hidden by default */
-  background-color: transparent; /* Transparent background */
-  border: none; /* No border */
-  color: var(--primary-text-color); /* Text color */
-  font-size: 20px; /* Font size */
-  cursor: pointer; /* Pointer cursor */
- }
- 
- /* Footer Styles */
- footer {
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-  text-align: center; /* Centered text */
-  padding: 20px; /* Padding */
-  position: fixed; /* Fixed position */
-  left: 0;
-  bottom: 0;
-  width: 100%; /* Full width */
-  color: var(--primary-text-color); /* Text color */
- }
- 
- /* Responsive Design */
- @media screen and (max-width: 768px) {
-  nav {
-    display: none; /* Hide nav on small screens */
-  }
- 
-  .menu-button {
-    display: block; /* Show menu button */
     position: fixed;
     top: 10px;
     right: 10px;
@@ -464,7 +232,7 @@
     padding: 10px; /* Padding */
     border-radius: 5px; /* Rounded corners */
   }
- 
+
   nav.show {
     display: block; /* Show nav when toggled */
     position: absolute;
@@ -472,66 +240,65 @@
     left: 0;
     top: 40px;
   }
- 
+
   nav ul {
     flex-direction: column; /* Vertical list */
   }
- 
+
   nav li {
     margin: 10px 0; /* Spacing */
   }
- 
+
   .modal-content {
     width: 80vw; /* Responsive width */
     height: 80vh; /* Responsive height */
   }
- 
+
   .container {
     display: block; /* Block layout */
   }
- 
+
   section {
     width: 80%; /* Full width */
     margin: 20px auto; /* Centered */
     align-self: center; /* Center alignment */
   }
- 
+
   .gameContainer {
     width: 100%; /* Full width */
   }
- 
+
   .content {
     display: none; /* Hidden by default */
   }
- 
+
   .content.visible {
     display: block; /* Show on click */
   }
- }
- 
- /* Adjust last section to avoid overlap with footer */
- #contact {
+}
+
+/* Adjust last section to avoid overlap with footer */
+#contact {
   margin-bottom: 150px; /* Ensure space above footer */
- }
- 
- /* Modal Styling for Mobile Content */
- #contentModal .modal-content {
-    width: 80vw; /* Responsive width */
-    height: 80vh; /* Responsive height */
-    overflow-y: auto; /* Scrollable content */
- }
- 
- #contentModal .close {
-    color: #fff; /* Close button color */
-    float: right; /* Align right */
-    font-size: 28px; /* Font size */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor */
- }
- 
- #contentModal .close:hover,
- #contentModal .close:focus {
-    color: #bbb; /* Hover and focus color */
-    text-decoration: none; /* No underline */
- }
- 
+}
+
+/* Modal Styling for Mobile Content */
+#contentModal .modal-content {
+  width: 80vw; /* Responsive width */
+  height: 80vh; /* Responsive height */
+  overflow-y: auto; /* Scrollable content */
+}
+
+#contentModal .close {
+  color: #fff; /* Close button color */
+  float: right; /* Align right */
+  font-size: 28px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor */
+}
+
+#contentModal .close:hover,
+#contentModal .close:focus {
+  color: #bbb; /* Hover and focus color */
+  text-decoration: none; /* No underline */
+}
