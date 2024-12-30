@@ -228,7 +228,7 @@ footer {
     top: 10px;
     right: 10px;
     z-index: 1001; /* On top of nav */
-    background-color: transparent;  
+    background-color: transparent !important;
     padding: 10px; /* Padding */
     border-radius: 5px; /* Rounded corners */
   }
