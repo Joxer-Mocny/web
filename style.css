@@ -262,6 +262,7 @@ footer {
     width: 80%; /* Full width */
     margin: 20px auto; /* Centered */
     align-self: center; /* Center alignment */
+    background-color: transparent ;
   }
 
   .gameContainer {
