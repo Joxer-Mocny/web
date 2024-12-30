@@ -228,7 +228,6 @@ footer {
     top: 10px;
     right: 10px;
     z-index: 1001; /* On top of nav */
-    background-color: rgba(0, 0, 0, 0.7); /* Background color */
     padding: 10px; /* Padding */
     border-radius: 5px; /* Rounded corners */
   }
