@@ -1,0 +1,93 @@
+body {
+  background: black; /* Set background color to black */
+  text-align: center; /* Center text alignment */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Arrange children in a column */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 100%; /* Full height of the viewport */
+  overflow: hidden; /* Prevent scrolling */
+ }
+ 
+ #gameArea {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+ }
+ 
+ canvas {
+  border: 2px solid #FFFFFF; /* White border around canvas */
+  box-sizing: border-box; /* Include border in element's total width and height */
+  width: 100%; /* Full width of the container */
+  height: 50%; /* Half the height of the container */
+ }
+ 
+ h1 {
+  color: #FFFFFF; /* White text color */
+  margin-top: 5px; /* Small margin above */
+  font-size: 2em; /* Large font size */
+  font-family: Verdana, Geneva, Tahoma, sans-serif; /* Font family */
+  font-weight: bold; /* Bold text */
+  letter-spacing: -1px; /* Slightly reduce letter spacing */
+ }
+ 
+ h1 strong {
+  font-size: 1.35em; /* Slightly larger font size */
+  display: inline-block; /* Display as inline block */
+  margin: 0 0.25em; /* Small horizontal margin */
+ }
+ 
+ a {
+  text-decoration: none; /* Remove underline from links */
+  color: #FFFFFF; /* White text color */
+ }
+ 
+ h2 strong {
+  display: inline-block; /* Display as inline block */
+  margin: 0 0.25em; /* Small horizontal margin */
+ }
+ 
+ .btn {
+  display: none; /* Hidden by default */
+ }
+ 
+ #restartButton {
+  display: none; /* Hidden by default */
+  font-size: 1em; /* Standard font size */
+  padding: 10px 20px; /* Padding for button */
+  margin-top: 5px; /* Small margin above */
+  cursor: pointer; /* Pointer cursor on hover */
+ }
+ 
+ /* Mobile Controls Styling */
+ #mobileControls {
+  display: none; /* Initially hidden */
+  flex-direction: column; /* Arrange buttons in a column */
+  align-items: center; /* Center buttons horizontally */
+  margin-top: 0px; /* No margin above */
+ }
+ 
+ #mobileControls button {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text color */
+  border: 2px solid #fff; /* White border */
+  padding: 5px 10px; /* Padding for buttons */
+  margin: 3px; /* Small margin around buttons */
+  font-size: 1.5em; /* Large font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for background and text color */
+ }
+ 
+ #mobileControls button:active {
+  background-color: #fff; /* White background when active */
+  color: #000; /* Black text color when active */
+ }
+ 
+ #mobileControls div {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center content horizontally */
+ }
+ 

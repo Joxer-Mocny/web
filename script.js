@@ -60,15 +60,15 @@ document.addEventListener("DOMContentLoaded", () => {
         var gameContainer = document.getElementById("gameContainer");
         if (gameType === 'snake') {
             if (window.innerWidth >= 769) { // PC screen
-                gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+                gameContainer.innerHTML = '<iframe src="snake/snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
             } else { // Mobile screen
-                gameContainer.innerHTML = '<iframe src="snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+                gameContainer.innerHTML = '<iframe src="snake/snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
             }
         } else if (gameType === 'racing') {
             if (window.innerWidth >= 769) { // PC screen
-                gameContainer.innerHTML = '<iframe src="RacingCar/racingCar.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+                gameContainer.innerHTML = '<iframe src="racingCar/racingCar.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
             } else { // Mobile screen
-                gameContainer.innerHTML = '<iframe src="RacingCar/racingMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+                gameContainer.innerHTML = '<iframe src="racingCar/racingCarMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
             }
         }
     }
