@@ -149,11 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     leftButton.addEventListener("touchstart", () => {
-        velocityX = -1; // Start moving left
+        velocityX = -2; // Start moving left
     });
  
     rightButton.addEventListener("touchstart", () => {
-        velocityX = 1; // Start moving right
+        velocityX = 2; // Start moving right
     });
  
     document.addEventListener("touchend", () => {
