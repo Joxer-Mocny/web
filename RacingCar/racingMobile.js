@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const startButton = document.getElementById("startButton");
     const leftButton = document.getElementById("leftButton");
     const rightButton = document.getElementById("rightButton");
-    const instructions = document.getElementById("instructions")
+    const shootButton = document.getElementById("shoot"); // Correct reference to the shoot button
+    const instructions = document.getElementById("instructions");
  
     let carX = canvas.width / 2 - 15;
     let carY = canvas.height - 60;
@@ -12,18 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
     let carHeight = 60;
     let velocityX = 0;
     let obstacles = [];
+    let bullets = [];
     let gameIsRunning = false;
     let score = 0;
+    let ammo = 1;
  
     function startGame() {
         carX = canvas.width / 2 - 15;
         carY = canvas.height - 60;
         velocityX = 0;
         obstacles = [];
+        bullets = [];
+        ammo = 1;
         score = 0;
         gameIsRunning = true;
         startButton.style.display = "none";
-        instructions.style.display= "none";
+        instructions.style.display = "none";
         gameLoop();
     }
  
@@ -55,11 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
  
-        obstacles.forEach(obstacle => {
+        obstacles.forEach((obstacle, index) => {
             obstacle.y += 1;
             if (obstacle.y > canvas.height) {
                 obstacles.shift();
                 score++;
+                if (score % 10 === 0) {
+                    ammo++; // Add ammo every 10 obstacles passed
+                }
             }
             if (carX < obstacle.x + obstacle.width &&
                 carX + carWidth > obstacle.x &&
@@ -67,6 +75,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 carY + carHeight > obstacle.y) {
                 gameOver();
             }
+        });
+ 
+        bullets.forEach((bullet, bulletIndex) => {
+            bullet.y -= 5;
+            if (bullet.y < 0) {
+                bullets.splice(bulletIndex, 1);
+            }
+            obstacles.forEach((obstacle, obstacleIndex) => {
+                if (bullet.x < obstacle.x + obstacle.width &&
+                    bullet.x + bullet.width > obstacle.x &&
+                    bullet.y < obstacle.y + obstacle.height &&
+                    bullet.y + bullet.height > obstacle.y) {
+                    obstacles.splice(obstacleIndex, 1);
+                    bullets.splice(bulletIndex, 1);
+                    score++;
+                    if (score % 10 === 0) {
+                        ammo++; // Add ammo every 10 obstacles passed
+                    }
+                }
+            });
         });
     }
  
@@ -103,9 +131,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.fillRect(obstacle.x + obstacle.width - wheelWidth, obstacle.y + obstacle.height - wheelHeight, wheelWidth, wheelHeight);
         });
  
+        // Draw bullets
+        ctx.fillStyle = "yellow";
+        bullets.forEach(bullet => {
+            ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        });
+ 
         ctx.fillStyle = "white";
         ctx.font = "20px Arial";
         ctx.fillText("Score: " + score, 10, 20);
+        ctx.fillText("Ammo: " + ammo, 10, 40);
     }
  
     function gameOver() {
@@ -114,16 +149,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     leftButton.addEventListener("touchstart", () => {
-        velocityX = -3; // Start moving left
-     });
-     
-     rightButton.addEventListener("touchstart", () => {
-        velocityX = 3; // Start moving right
-     });
-     
-     document.addEventListener("touchend", () => {
+        velocityX = -1; // Start moving left
+    });
+ 
+    rightButton.addEventListener("touchstart", () => {
+        velocityX = 1; // Start moving right
+    });
+ 
+    document.addEventListener("touchend", () => {
         velocityX = 0; // Stop moving when the touch ends
-     });
+    });
+ 
+    shootButton.addEventListener("click", () => {
+        if (ammo > 0) {
+            shootBullet();
+        }
+    });
+ 
+    function shootBullet() {
+        bullets.push({ x: carX + carWidth / 2 - 2, y: carY, width: 4, height: 10 });
+        ammo--;
+    }
  
     startButton.onclick = startGame;
  });
