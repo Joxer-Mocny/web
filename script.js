@@ -18,16 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the modal element
     var modal = document.getElementById("modal");
  
-    // Get the button that opens the modal
-    var btn = document.getElementById("playButton");
+    // Get the buttons that open the modal
+    var snakeBtn = document.getElementById("playSnakeButton");
+    var racingBtn = document.getElementById("playRacingButton");
  
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
  
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
+    // When the user clicks the snake game button, open the modal
+    snakeBtn.onclick = function() {
         modal.style.display = "block"; // Show modal
-        loadGame(); // Load game content
+        loadGame('snake'); // Load snake game content
+        disableArrowScroll(); // Disable arrow key scrolling
+    }
+ 
+    // When the user clicks the racing game button, open the modal
+    racingBtn.onclick = function() {
+        modal.style.display = "block"; // Show modal
+        loadGame('racing'); // Load racing game content
         disableArrowScroll(); // Disable arrow key scrolling
     }
  
@@ -48,12 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Function to load the game
-    function loadGame() {
+    function loadGame(gameType) {
         var gameContainer = document.getElementById("gameContainer");
-        if (window.innerWidth >= 769) { // PC screen
-            gameContainer.innerHTML = '<iframe src="snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
-        } else { // Mobile screen
-            gameContainer.innerHTML = '<iframe src="snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        if (gameType === 'snake') {
+            if (window.innerWidth >= 769) { // PC screen
+                gameContainer.innerHTML = '<iframe src="snake/snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+            } else { // Mobile screen
+                gameContainer.innerHTML = '<iframe src="snake/snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+            }
+        } else if (gameType === 'racing') {
+            if (window.innerWidth >= 769) { // PC screen
+                gameContainer.innerHTML = '<iframe src="racingCar/racingCar.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+            } else { // Mobile screen
+                gameContainer.innerHTML = '<iframe src="racingCar/racingCarMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+            }
         }
     }
  

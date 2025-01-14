@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Specifies the character encoding for the HTML document -->
+  <meta charset="UTF-8">
+  <!-- Sets the viewport to make the website responsive on different devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title of the web page displayed in the browser tab -->
+  <title>Racing Car Game</title>
+  <!-- Link to the external CSS file for styling the page -->
+  <link rel="stylesheet" href="racing.css">
+</head>
+<body>
+  <!-- Main game area container -->
+  <div id="gameArea">
+      <!-- Canvas element where the game graphics will be drawn -->
+      <canvas width="200" height="380"></canvas>
+  </div>
+  <!-- Button to start the game -->
+  <button id="startButton">Start</button>
+  <!-- Instruction for the user on how to play the game -->
+  <h1 id="instructions">Tap buttons to move and shoot with shoot button</h1>
+  
+  <!-- Mobile Controls section for touch devices -->
+  <div id="mobileControls">
+      <!-- Button to move left -->
+      <button id="leftButton">Left</button>
+      <!-- Button to shoot -->
+      <button id="shoot">Shoot</button>
+      <!-- Button to move right -->
+      <button id="rightButton">Right</button>
+  </div>
+
+  <!-- Link to the external JavaScript file containing game logic for mobile -->
+  <script src="racingMobile.js"></script>
+</body>
+</html>
