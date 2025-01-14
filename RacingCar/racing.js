@@ -1,4 +1,4 @@
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
     const startButton = document.getElementById("startButton");
@@ -102,8 +102,8 @@
  
         // Draw wheels for the player's car
         ctx.fillStyle = "black";
-        const wheelWidth = 8;
-        const wheelHeight = 8;
+        const wheelWidth = 12;
+        const wheelHeight = 20;
         // Front wheels
         ctx.fillRect(carX, carY, wheelWidth, wheelHeight);
         ctx.fillRect(carX + carWidth - wheelWidth, carY, wheelWidth, wheelHeight);
