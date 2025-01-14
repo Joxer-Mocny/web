@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
  
     let carX = canvas.width / 2 - 15;
     let carY = canvas.height - 60;
-    let carWidth = 40;
-    let carHeight = 65;
+    let carWidth = 30;
+    let carHeight = 60;
     let velocityX = 0;
     let obstacles = [];
     let bullets = [];
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gameIsRunning = true;
         startButton.style.display = "none";
         instructions.style.display = "none";
+        mobileControls.style.display = "block"; 
         gameLoop();
     }
  
@@ -107,8 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
  
         // Draw wheels for the player's car
         ctx.fillStyle = "black";
-        const wheelWidth = 12;
-        const wheelHeight = 20;
+        const wheelWidth = 10;
+        const wheelHeight = 18;
         // Front wheels
         ctx.fillRect(carX, carY, wheelWidth, wheelHeight);
         ctx.fillRect(carX + carWidth - wheelWidth, carY, wheelWidth, wheelHeight);
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
+        mobileControls.style.display = "none"; 
     }
  
     leftButton.addEventListener("touchstart", () => {
