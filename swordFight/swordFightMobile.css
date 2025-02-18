@@ -29,6 +29,8 @@ body {
   border-radius: 10px;
   transition: background-color 0.3s, color 0.3s;
   user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Prevent text selection on iOS */
+  -webkit-touch-callout: none; /* Disable context menu on iOS */
  }
  
  button:hover {
