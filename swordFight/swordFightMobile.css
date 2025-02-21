@@ -28,9 +28,10 @@ body {
   cursor: pointer;
   border-radius: 10px;
   transition: background-color 0.3s, color 0.3s;
-  user-select: none; /* Prevent text selection */
-  -webkit-user-select: none; /* Prevent text selection on iOS */
-  -webkit-touch-callout: none; /* Disable context menu on iOS */
+  user-select: none; 
+  -webkit-user-select: none; 
+  -webkit-touch-callout: none; 
+  -webkit-touch-callout: transparent;
  }
  
  button:hover {
@@ -73,12 +74,12 @@ body {
   margin: 5px;
  }
  
- /* Adjust font size for the message and timer */
+
  .message {
-  font-size: 36px; /* Smaller font size for "PREY SLAUGHTERED" */
+  font-size: 36px; 
  }
  
  .timer {
-  font-size: 20px; /* Adjusted font size for the timer */
-  margin-top: 10px; /* Position the timer higher */
+  font-size: 20px; 
+  margin-top: 10px; 
  }
