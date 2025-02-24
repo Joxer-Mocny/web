@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+ }
+ 
+ h2 {
+    margin-top: 20px;
+    color: #444;
+ }
+ 
+ select, button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+ }
+ 
+ button:hover {
+    background-color: #e0e0e0;
+ }
+ 
+ #highScores {
+    margin-top: 20px;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+ }
+ 
+ #highScores h3 {
+    margin-bottom: 10px;
+    color: #555;
+ }
+ 
+ #highScores p {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+ }
+ 
