@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
  
+    const highScorePopup = document.getElementById("highScorePopup");
+   const newScoreSpan = document.getElementById("newScore");
+   const playerNameInput = document.getElementById("playerName");
+   const submitHighScoreButton = document.getElementById("submitHighScore");
+
     // Check if all required elements are present
     if (!canvas || !ctx || !title || !restartButton) {
         console.error("Required elements are missing from the DOM");
@@ -119,7 +124,21 @@ document.addEventListener("DOMContentLoaded", () => {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
+
+        checkHighScore(score, 'snake', (newHighScore) => {
+            newScoreSpan.textContent = newHighScore;
+            highScorePopup.style.display = "block";
+        });
     }
+
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName) {
+            submitHighScore('snake', playerName, score);
+        } else {
+            alert('Please enter your name');
+        }
+    };
  
     // Handle keyboard input for snake movement
     document.addEventListener("keydown", keyPush);
