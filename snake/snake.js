@@ -142,41 +142,48 @@ document.addEventListener("DOMContentLoaded", () => {
  
     // Handle keyboard input for snake movement
     document.addEventListener("keydown", keyPush);
+
     function keyPush(event) {
-        switch (event.key) {
-            case "ArrowLeft":
-                if (velocityX !== 1) {
-                    velocityX = -1;
-                    velocityY = 0;
-                }
-                break;
-            case "ArrowUp":
-                if (velocityY !== 1) {
-                    velocityX = 0;
-                    velocityY = -1;
-                }
-                break;
-            case "ArrowRight":
-                if (velocityX !== -1) {
-                    velocityX = 1;
-                    velocityY = 0;
-                }
-                break;
-            case "ArrowDown":
-                if (velocityY !== -1) {
-                    velocityX = 0;
-                    velocityY = 1;
-                }
-                break;
-            default:
-                if (!gameIsRunning) location.reload(); // Reload page to restart game
-                break;
-        }
-        // Prevent default behavior (scrolling)
-        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
-            event.preventDefault();
-        }
+       // Check if the input field is focused
+       if (document.activeElement === playerNameInput) {
+           return; // Ignore key presses if typing in the input field
+       }
+    
+       switch (event.key) {
+           case "ArrowLeft":
+               if (velocityX !== 1) {
+                   velocityX = -1;
+                   velocityY = 0;
+               }
+               break;
+           case "ArrowUp":
+               if (velocityY !== 1) {
+                   velocityX = 0;
+                   velocityY = -1;
+               }
+               break;
+           case "ArrowRight":
+               if (velocityX !== -1) {
+                   velocityX = 1;
+                   velocityY = 0;
+               }
+               break;
+           case "ArrowDown":
+               if (velocityY !== -1) {
+                   velocityX = 0;
+                   velocityY = 1;
+               }
+               break;
+           default:
+               if (!gameIsRunning) location.reload(); // Reload page to restart game
+               break;
+       }
+       // Prevent default behavior (scrolling)
+       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+           event.preventDefault();
+       }
     }
+    
  
     // Restart game on button click
     const restartBtn = document.getElementById("restartButton");

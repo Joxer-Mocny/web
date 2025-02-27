@@ -15,4 +15,3 @@ document.getElementById('showHighScoresButton').addEventListener('click', async 
         console.error('Error fetching high scores:', error);
     }
  });
- 
