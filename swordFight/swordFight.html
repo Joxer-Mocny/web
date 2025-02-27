@@ -8,18 +8,26 @@
 </head>
 <body>
    <canvas id="gameCanvas" width="800" height="200"></canvas>
-   
-</div>
-    <button id="startButton">start</button>
-    <div id="instructions">
-        <p>Controls:</p>
-        <ul>
-            <li>Move Left: Arrow Left</li>
-            <li>Move Right: Arrow Right</li>
-            <li>Attack: Space</li>
-            <li>Block: Shift</li>
-        </ul>
-    </div>
+   <button id="startButton">Start</button>
+   <div id="instructions">
+       <p>Controls:</p>
+       <ul>
+           <li>Move Left: Arrow Left</li>
+           <li>Move Right: Arrow Right</li>
+           <li>Attack: Space</li>
+           <li>Block: Shift</li>
+       </ul>
+   </div>
+
+   <!-- High Score Section -->
+   <div id="highScorePopup" style="display: none;">
+       <h2>New High Score!</h2>
+       <p>Your Score: <span id="newScore"></span></p>
+       <input type="text" id="playerName" placeholder="Enter your name">
+       <button id="submitHighScore">Submit</button>
+   </div>
+
    <script src="swordFight.js"></script>
+   <script src="../newHighScore/newHighScore.js"></script>
 </body>
 </html>
