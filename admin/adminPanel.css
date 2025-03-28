@@ -1,0 +1,5 @@
+body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f9; }
+    h2 { color: #333; }
+    select, input, button { padding: 10px; margin: 10px 5px; }
+    .score-entry { background: white; border: 1px solid #ccc; padding: 10px; margin-bottom: 5px; border-radius: 5px; }
+    .score-entry button { float: right; background: crimson; color: white; border: none; padding: 5px 10px; cursor: pointer; }
