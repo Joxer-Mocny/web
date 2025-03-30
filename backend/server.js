@@ -1,10 +1,10 @@
-// server.js
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const { posliHighscoreEmail } = require('./mailer');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,7 +22,6 @@ const highScoreSchema = new mongoose.Schema({
 });
 const HighScore = mongoose.model('HighScore', highScoreSchema);
 
-// JWT middleware
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -36,7 +35,6 @@ function verifyToken(req, res, next) {
   });
 }
 
-// Admin login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (
@@ -50,7 +48,6 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Public: Get highscores for a game
 app.get('/highscores/:game', async (req, res) => {
   const game = req.params.game;
   try {
@@ -62,19 +59,18 @@ app.get('/highscores/:game', async (req, res) => {
   }
 });
 
-// Public: Submit new high score
 app.post('/highscores', async (req, res) => {
   const { game, name, score } = req.body;
   try {
     const newScore = new HighScore({ game, name, score });
     await newScore.save();
+    posliHighscoreEmail(name, score);
     res.status(201).send('High score submitted');
   } catch (error) {
     res.status(500).json({ error: 'Error saving high score' });
   }
 });
 
-// Admin only: Delete high score(s) by name
 app.delete('/highscores/:game/:name', verifyToken, async (req, res) => {
   const { game, name } = req.params;
   try {
