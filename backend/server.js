@@ -64,12 +64,27 @@ app.post('/highscores', async (req, res) => {
   try {
     const newScore = new HighScore({ game, name, score });
     await newScore.save();
+
+    const count = await HighScore.countDocuments({ game });
+
+    if (count > 100) {
+      const sortOrder = game === 'snake' ? 1 : -1;
+
+      const scoresToDelete = await HighScore.find({ game })
+        .sort({ score: sortOrder })
+        .skip(100);
+
+      const idsToDelete = scoresToDelete.map(doc => doc._id);
+      await HighScore.deleteMany({ _id: { $in: idsToDelete } });
+    }
+
     posliHighscoreEmail(name, score);
     res.status(201).send('High score submitted');
   } catch (error) {
     res.status(500).json({ error: 'Error saving high score' });
   }
 });
+
 
 app.delete('/highscores/:game/:name', verifyToken, async (req, res) => {
   const { game, name } = req.params;
