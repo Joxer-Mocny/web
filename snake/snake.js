@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let gameStarted = false; 
     let fps = 10;
     let score = 0;
+    let isNewHighScore = false;
  
     // Start game on canvas click
     canvas.addEventListener("click", () => {
@@ -124,8 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
-
+    
         checkHighScore(score, 'snake', (newHighScore) => {
+            isNewHighScore = true;
             newScoreSpan.textContent = newHighScore;
             highScorePopup.style.display = "block";
         });
@@ -133,8 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitHighScoreButton.onclick = function() {
         const playerName = playerNameInput.value.trim();
-        if (playerName) {
+        if (playerName && isNewHighScore) {
             submitHighScore('snake', playerName, score);
+            isNewHighScore = false; // zabráni opätovnému uloženiu
         } else {
             alert('Please enter your name');
         }

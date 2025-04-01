@@ -10,16 +10,17 @@
    <div id="gameArea">
        <canvas width="170" height="340"></canvas>
    </div>
+     <!-- High Score Section -->
+     <div id="highScorePopup" style="display: none;">
+        <h2>New High Score!</h2>
+        <p>Your Score: <span id="newScore"></span></p>
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="submitHighScore">Submit</button>
+    </div>
    <button id="startButton">Start</button>
    <h1>Use arrow keys to move and space to shoot</h1>
 
-   <!-- High Score Section -->
-   <div id="highScorePopup" style="display: none;">
-       <h2>New High Score!</h2>
-       <p>Your Score: <span id="newScore"></span></p>
-       <input type="text" id="playerName" placeholder="Enter your name">
-       <button id="submitHighScore">Submit</button>
-   </div>
+ 
 
    <script src="racing.js"></script>
    <script src="../newHighScore/newHighScore.js"></script>

@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let ammo = 1;
     let gameIsRunning = false;
     let score = 0;
+    let isNewHighScore = false;
  
     // Function to start the game
     function startGame() {
@@ -139,8 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
- 
+    
         checkHighScore(score, 'racing', (newHighScore) => {
+            isNewHighScore = true;
             newScoreSpan.textContent = newHighScore;
             highScorePopup.style.display = "block";
         });
@@ -148,8 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
  
     submitHighScoreButton.onclick = function() {
         const playerName = playerNameInput.value.trim();
-        if (playerName) {
+        if (playerName && isNewHighScore) {
             submitHighScore('racing', playerName, score);
+            isNewHighScore = false;
         } else {
             alert('Please enter your name');
         }

@@ -1,4 +1,3 @@
-// Displays top scores for the selected game when the button is clicked
 document.getElementById('showHighScoresButton').addEventListener('click', async () => {
     const game = document.getElementById('gameSelect').value;
     try {
@@ -7,8 +6,6 @@ document.getElementById('showHighScoresButton').addEventListener('click', async 
             throw new Error('Network response was not ok');
         }
         const scores = await response.json();
-
-        // Display scores on the page
         const highScoresDiv = document.getElementById('highScores');
         highScoresDiv.innerHTML = `<h3>${game.charAt(0).toUpperCase() + game.slice(1)} High Scores</h3>`;
         scores.forEach(score => {
@@ -17,4 +14,4 @@ document.getElementById('showHighScoresButton').addEventListener('click', async 
     } catch (error) {
         console.error('Error fetching high scores:', error);
     }
-});
+ });

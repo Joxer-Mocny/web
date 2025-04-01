@@ -8,11 +8,16 @@ function checkHighScore(currentScore, game, callback) {
             return response.json();
         })
         .then(scores => {
-            const highestScore = scores.length ? scores[0].score : Infinity;
-            if (currentScore < highestScore) {
+            const sortedScores = scores
+                .filter(s => s.game === game)
+                .sort((a, b) => b.score - a.score); // zoradené zostupne (vyššie = lepšie)
+        
+            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+            if (currentScore > highestScore) {
                 callback(currentScore);
             }
         })
+        
         .catch(error => console.error('Error fetching high scores:', error));
  }
  

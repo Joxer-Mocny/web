@@ -38,6 +38,7 @@ let gameRunning = false;
 let message = '';
 let fadeOpacity = 0;
 let isGameOver = false;
+let isNewHighScore = false;
 let timer = 1000; // Countdown timer starting from 1000
 
 // Function to draw the player character
@@ -124,15 +125,16 @@ function update() {
            opponent.health--;
            resetPositions();
            if (opponent.health <= 0) {
-               message = "PREY SLAUGHTERED";
-               isGameOver = true;
-               gameRunning = false;
-               // Check for high score only when the player wins
-               checkHighScore(timer, 'swordFight', (newHighScore) => {
-                   newScoreSpan.textContent = newHighScore;
-                   highScorePopup.style.display = "block";
-               });
-           }
+            message = "PREY SLAUGHTERED";
+            isGameOver = true;
+            gameRunning = false;
+        
+            checkHighScore(timer, 'swordFight', (newHighScore) => {
+                isNewHighScore = true;
+                newScoreSpan.textContent = newHighScore;
+                highScorePopup.style.display = "block";
+            });
+        }
        } else if (opponent.isAttacking && !player.isBlocking) {
            player.health--;
            resetPositions();
@@ -295,12 +297,13 @@ startButton.addEventListener('click', () => {
 
 // Submit high score
 submitHighScoreButton.onclick = function() {
-   const playerName = playerNameInput.value.trim();
-   if (playerName) {
-       submitHighScore('swordFight', playerName, timer);
-   } else {
-       alert('Please enter your name');
-   }
+    const playerName = playerNameInput.value.trim();
+    if (playerName && isNewHighScore) {
+        submitHighScore('swordFight', playerName, timer);
+        isNewHighScore = false;
+    } else {
+        alert('Please enter your name');
+    }
 };
 
 // Start the game loop
