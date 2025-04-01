@@ -1,6 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
+// Sends a high score email notification using Brevo API
 async function posliHighscoreEmail(meno, skore) {
   try {
     const response = await axios.post(
@@ -8,8 +9,8 @@ async function posliHighscoreEmail(meno, skore) {
       {
         sender: { name: "Highscore Bot", email: process.env.EMAIL_FROM },
         to: [{ email: process.env.EMAIL_TO }],
-        subject: "🎮 Nový Highscore!",
-        textContent: `Gratulujeme! ${meno} práve dosiahol skóre: ${skore}`
+        subject: "🎮 New Highscore!",
+        textContent: `Congratulations! ${meno} just scored: ${skore}`
       },
       {
         headers: {
@@ -18,9 +19,9 @@ async function posliHighscoreEmail(meno, skore) {
         }
       }
     );
-    console.log("✅ Email odoslaný:", response.data);
+    console.log("✅ Email sent:", response.data);
   } catch (error) {
-    console.error("❌ Chyba pri odoslaní emailu:", error.response?.data || error.message);
+    console.error("❌ Failed to send email:", error.response?.data || error.message);
   }
 }
 
