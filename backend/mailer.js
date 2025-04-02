@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require('axios');
 require("dotenv").config();
 
 // Sends a high score email notification using Brevo API

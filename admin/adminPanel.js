@@ -13,26 +13,27 @@ async function loadScores() {
   data.forEach(score => {
     const entry = document.createElement('div');
     entry.className = 'score-entry';
-    entry.innerHTML = `${score.name}: ${score.score} <button onclick="deleteScore('${game}', '${score.name}')">Delete</button>`;
+    entry.innerHTML = `${score.name}: ${score.score} <button onclick="deleteScore('${score._id}')">Delete</button>`;
     scoresDiv.appendChild(entry);
   });
 }
 
 // Delete high scores by player name
-async function deleteScore(game, name) {
+async function deleteScore(id) {
   const token = localStorage.getItem('adminToken');
-  const confirmDelete = confirm(`Are you sure you want to delete all scores for '${name}'?`);
+  const confirmDelete = confirm('Are you sure you want to delete this score?');
   if (!confirmDelete) return;
 
-  const res = await fetch(`http://localhost:3000/highscores/${game}/${name}`, {
+  const res = await fetch(`http://localhost:3000/highscore/${id}`, {
     method: 'DELETE',
     headers: { 'Authorization': `Bearer ${token}` }
   });
 
   if (res.ok) {
-    alert('Score(s) deleted');
-    loadScores(); // Reload scores
+    alert('Score deleted');
+    loadScores(); // Refresh list
   } else {
-    alert('Failed to delete score(s)');
+    alert('Failed to delete score');
   }
 }
+
