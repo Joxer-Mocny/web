@@ -107,19 +107,28 @@ app.post('/highscores', async (req, res) => {
   }
 });
 
-// DELETE endpoint to remove all scores for a player in a game
-app.delete('/highscores/:game/:name', verifyToken, async (req, res) => {
-  const { game, name } = req.params;
+app.delete('/highscore/:id', verifyToken, async (req, res) => {
+  const { id } = req.params;
   try {
-    const result = await HighScore.deleteMany({ game, name });
-    if (result.deletedCount > 0) {
-      res.status(200).send(`High scores for ${name} deleted`);
+    const result = await HighScore.findByIdAndDelete(id);
+    if (result) {
+      res.status(200).send('Highscore deleted');
     } else {
-      res.status(404).send('No high scores found for the specified name');
+      res.status(404).send('Highscore not found');
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting high scores' });
+    res.status(500).json({ error: 'Error deleting highscore' });
   }
+});
+
+const path = require('path');
+
+
+app.use(express.static(path.join(__dirname, '..'))); 
+
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html')); 
 });
 
 // Start the server
