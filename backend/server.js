@@ -12,9 +12,9 @@ app.use(bodyParser.json()); // Parse JSON request bodies
 app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 
 // Connect to MongoDB database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highscore')
-   .then(() => console.log('MongoDB connected'))
-   .catch(err => console.log(err));
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highscore', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.log('Error connecting to MongoDB:', err));
 
 // Define schema for high scores
 const highScoreSchema = new mongoose.Schema({
