@@ -1,19 +1,26 @@
-document.getElementById('loginForm').addEventListener('submit', async function (event) {
-  event.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/login', {  
+  try {
+    const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/login', { // Update to Heroku URL
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-  });
+      body: JSON.stringify({ username, password })
+    });
 
-  if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      window.location.href = '/adminPanel.html';
-  } else {
-      alert('Login failed');
+    if (!response.ok) {
+      throw new Error('Invalid credentials');
+    }
+
+    const data = await response.json();
+    const token = data.token;
+
+    localStorage.setItem('token', token);
+    window.location.href = '/adminPanel.html';
+  } catch (error) {
+    alert(error.message);
   }
 });

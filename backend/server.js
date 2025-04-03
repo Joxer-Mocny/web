@@ -125,15 +125,16 @@ app.delete('/highscore/:id', verifyToken, async (req, res) => {
 const path = require('path');
 
 // Serve static files (like HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, '..'))); 
+app.use(express.static(path.join(__dirname, '..')));
 
 // Get endpoint to serve the main page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html')); 
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+// Serve admin page
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '/admin/admin.html')); 
+  res.sendFile(path.join(__dirname, '..', 'admin/admin.html'));
 });
 
 // Start the server
