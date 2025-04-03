@@ -1,24 +1,19 @@
-// Handles admin login form submission
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault(); // Prevent default form behavior
-
-  // Get input values
+document.getElementById('loginForm').addEventListener('submit', async function (event) {
+  event.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  // Send login request to backend
-  const res = await fetch('http://localhost:3000/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
+  const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/login', {  
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
   });
 
-  // If login is successful, store token and redirect
-  if (res.ok) {
-    const data = await res.json();
-    localStorage.setItem('adminToken', data.token);
-    window.location.href = 'adminPanel.html';
+  if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      window.location.href = '/adminPanel.html';
   } else {
-    alert('Login failed'); // Show error if login fails
+      alert('Login failed');
   }
 });

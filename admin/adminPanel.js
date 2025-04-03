@@ -1,39 +1,52 @@
-// Load high scores for selected game
-async function loadScores() {
-  const game = document.getElementById('gameSelect').value;
-  const token = localStorage.getItem('adminToken');
-
-  const res = await fetch(`http://localhost:3000/highscores/${game}`);
-  const data = await res.json();
-
-  const scoresDiv = document.getElementById('scores');
-  scoresDiv.innerHTML = ''; // Clear previous entries
-
-  // Create score entries in the DOM
-  data.forEach(score => {
-    const entry = document.createElement('div');
-    entry.className = 'score-entry';
-    entry.innerHTML = `${score.name}: ${score.score} <button onclick="deleteScore('${score._id}')">Delete</button>`;
-    scoresDiv.appendChild(entry);
-  });
+const token = localStorage.getItem('token');
+if (!token) {
+    window.location.href = '/admin.html';
 }
 
-// Delete high scores by player name
-async function deleteScore(id) {
-  const token = localStorage.getItem('adminToken');
-  const confirmDelete = confirm('Are you sure you want to delete this score?');
-  if (!confirmDelete) return;
+async function fetchHighScores() {
+    const game = document.getElementById('game').value;
+    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`, {  // Update to Heroku URL
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
 
-  const res = await fetch(`http://localhost:3000/highscore/${id}`, {
-    method: 'DELETE',
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-
-  if (res.ok) {
-    alert('Score deleted');
-    loadScores(); // Refresh list
-  } else {
-    alert('Failed to delete score');
-  }
+    if (response.ok) {
+        const scores = await response.json();
+        displayHighScores(scores);
+    } else {
+        alert('Failed to fetch high scores');
+    }
 }
+
+async function deleteHighScore(id) {
+    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscore/${id}`, {  // Update to Heroku URL
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (response.ok) {
+        alert('Score deleted');
+        fetchHighScores();  // Refresh the scores
+    } else {
+        alert('Failed to delete score');
+    }
+}
+
+function displayHighScores(scores) {
+    const scoreList = document.getElementById('scoreList');
+    scoreList.innerHTML = '';
+
+    scores.forEach(score => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${score.playerName}: ${score.score}`;
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = () => deleteHighScore(score._id);
+        listItem.appendChild(deleteButton);
+        scoreList.appendChild(listItem);
+    });
+}
+
+document.getElementById('game').addEventListener('change', fetchHighScores);
+fetchHighScores();  
+
 
