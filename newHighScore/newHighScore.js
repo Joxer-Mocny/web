@@ -1,6 +1,6 @@
 // Checks if current score is a new high score (lower is better)
 function checkHighScore(currentScore, game, callback) {
-    fetch(`http://localhost:3000/highscores/${game}`)
+    fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -10,7 +10,7 @@ function checkHighScore(currentScore, game, callback) {
         .then(scores => {
             const sortedScores = scores
                 .filter(s => s.game === game)
-                .sort((a, b) => b.score - a.score); // zoradené zostupne (vyššie = lepšie)
+                .sort((a, b) => b.score - a.score); 
         
             const highestScore = sortedScores.length ? sortedScores[0].score : 0;
             if (currentScore > highestScore) {
@@ -24,7 +24,7 @@ function checkHighScore(currentScore, game, callback) {
  // Submits new high score to the backend
  function submitHighScore(game, playerName, score) {
     const newHighScore = { game, name: playerName, score };
-    fetch('http://localhost:3000/highscores', {
+    fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/submit-highscore', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
