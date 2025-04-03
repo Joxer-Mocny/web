@@ -77,7 +77,7 @@ app.get('/highscores/:game', async (req, res) => {
 });
 
 // POST endpoint to submit a new highscore
-app.post('/highscores', async (req, res) => {
+app.post('/submit-highscore', async (req, res) => {
   const { game, name, score } = req.body;
   try {
     // Save new score to database
@@ -107,6 +107,7 @@ app.post('/highscores', async (req, res) => {
   }
 });
 
+// DELETE endpoint to delete a highscore
 app.delete('/highscore/:id', verifyToken, async (req, res) => {
   const { id } = req.params;
   try {
@@ -123,10 +124,10 @@ app.delete('/highscore/:id', verifyToken, async (req, res) => {
 
 const path = require('path');
 
-
+// Serve static files (like HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, '..'))); 
 
-
+// Get endpoint to serve the main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html')); 
 });
