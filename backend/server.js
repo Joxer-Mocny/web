@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
     username === process.env.ADMIN_USERNAME &&
     password === process.env.ADMIN_PASSWORD
   ) {
-    // Generate new JWT token (valid for 2 hours)
+    // Generate JWT token (valid for 2 hours)
     const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '2h' });
     res.json({ token });
   } else {
@@ -132,9 +132,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+// Serve admin login page
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'admin/admin.html'));  
+});
+
 // Serve admin panel page with token verification
 app.get('/adminPanel', verifyToken, (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'admin/adminPanel.html'));
+  res.sendFile(path.join(__dirname, '..', 'admin/adminPanel.html'));  
 });
 
 // Start the server

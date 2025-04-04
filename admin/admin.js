@@ -5,7 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/login', { // Update to Heroku URL
+    const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -21,7 +21,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     // Store token temporarily for the session
     sessionStorage.setItem('token', token);  // Use sessionStorage instead of localStorage
 
-    window.location.href = '/adminPanel';  // Redirect to admin page
+    // Redirect to adminPanel after successful login
+    window.location.href = '/adminPanel';  // Redirect to admin panel page
   } catch (error) {
     alert(error.message);
   }
