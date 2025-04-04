@@ -1,12 +1,17 @@
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem('token');  // Získaj token z sessionStorage
+
 if (!token) {
-    window.location.href = '/admin';  // Presmerovanie na prihlasovaciu stránku, ak token nie je nájdený
+    // Ak nie je token, presmeruj na stránku prihlásenia
+    window.location.href = '/admin';  
 }
 
 async function fetchHighScores() {
     const game = document.getElementById('game').value;
-    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`, {
-        headers: { 'Authorization': `Bearer ${token}` }  // Posielame token v Authorization hlavičke
+    const response = await fetch('https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/' + game, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`  // Posielame token v Authorization hlavičke
+        }
     });
 
     if (response.ok) {
