@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     // Store token temporarily for the session
     sessionStorage.setItem('token', token);  // Use sessionStorage instead of localStorage
 
-    window.location.href = '/admin';  // Redirect to admin page
+    window.location.href = '/adminPanel';  // Redirect to admin page
   } catch (error) {
     alert(error.message);
   }
