@@ -132,9 +132,9 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-// Serve admin page
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'admin/admin.html'));
+// Serve admin panel page with token verification
+app.get('/adminPanel', verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'admin/adminPanel.html'));
 });
 
 // Start the server
