@@ -1,12 +1,12 @@
 const token = sessionStorage.getItem('token');
 if (!token) {
-    window.location.href = '/admin';  
+    window.location.href = '/admin';  // Presmerovanie na prihlasovaciu stránku, ak token nie je nájdený
 }
 
 async function fetchHighScores() {
     const game = document.getElementById('game').value;
     const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Authorization': `Bearer ${token}` }  // Posielame token v Authorization hlavičke
     });
 
     if (response.ok) {
@@ -18,14 +18,14 @@ async function fetchHighScores() {
 }
 
 async function deleteHighScore(id) {
-    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscore/${id}`, {  // Update to Heroku URL
+    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscore/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Authorization': `Bearer ${token}` }  // Posielame token pri mazaní skóre
     });
 
     if (response.ok) {
         alert('Score deleted');
-        fetchHighScores();  // Refresh the scores
+        fetchHighScores();  // Obnovíme zoznam skóre
     } else {
         alert('Failed to delete score');
     }
@@ -47,6 +47,4 @@ function displayHighScores(scores) {
 }
 
 document.getElementById('game').addEventListener('change', fetchHighScores);
-fetchHighScores();  
-
-
+fetchHighScores();
