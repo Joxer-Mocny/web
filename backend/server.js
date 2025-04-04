@@ -30,17 +30,17 @@ const HighScore = mongoose.model('HighScore', highScoreSchema);
 // Middleware for verifying JWT token
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Extract token from header
+  const token = authHeader && authHeader.split(' ')[1];  // Získaj token z Authorization header
 
-  if (!token) return res.sendStatus(401); // Unauthorized if no token
+  if (!token) return res.sendStatus(401);  // Unauthorized, ak token nie je prítomný
 
-  // Verify token and attach user to request
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403); // Forbidden if invalid
+    if (err) return res.sendStatus(403);  // Forbidden, ak token je neplatný
     req.user = user;
-    next();
+    next();  // Pokračuj, ak je token platný
   });
 }
+
 
 // Login endpoint for admin
 app.post('/login', (req, res) => {

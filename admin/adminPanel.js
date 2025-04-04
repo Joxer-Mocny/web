@@ -1,7 +1,7 @@
 const token = sessionStorage.getItem('token');  // Získaj token z sessionStorage
 
 if (!token) {
-    // Ak nie je token, presmeruj na stránku prihlásenia
+    // Ak token nie je, presmeruj na stránku prihlásenia
     window.location.href = '/admin';  
 }
 
