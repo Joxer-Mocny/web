@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
     username === process.env.ADMIN_USERNAME &&
     password === process.env.ADMIN_PASSWORD
   ) {
-    // Generate JWT token (valid for 2 hours)
+    // Generate new JWT token (valid for 2 hours)
     const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '2h' });
     res.json({ token });
   } else {

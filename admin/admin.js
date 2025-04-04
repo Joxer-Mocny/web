@@ -18,8 +18,10 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const data = await response.json();
     const token = data.token;
 
-    localStorage.setItem('token', token);
-    window.location.href = '/adminPanel.html';
+    // Store token temporarily for the session
+    sessionStorage.setItem('token', token);  // Use sessionStorage instead of localStorage
+
+    window.location.href = '/admin';  // Redirect to admin page
   } catch (error) {
     alert(error.message);
   }

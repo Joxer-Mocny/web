@@ -1,11 +1,11 @@
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 if (!token) {
-    window.location.href = '/admin.html';
+    window.location.href = '/admin';  
 }
 
 async function fetchHighScores() {
     const game = document.getElementById('game').value;
-    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`, {  // Update to Heroku URL
+    const response = await fetch(`https://nameless-stream-52860-0d2bd30c49a5.herokuapp.com/highscores/${game}`, {
         headers: { 'Authorization': `Bearer ${token}` }
     });
 
