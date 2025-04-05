@@ -44,6 +44,7 @@ function verifyToken(req, res, next) {
           return res.status(403).send('Forbidden');  // If token is invalid
       }
       req.user = decoded;  // Store the decoded token information into the request
+      console.log("Decoded user data:", req.user);  // Debug log for decoded user
       next();  // Proceed to the next middleware (or route)
   });
 }
@@ -147,10 +148,6 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'login', 'login.html'));  
 });
 
-// Serve admin  page with token verification
-app.get('/admin', verifyToken, (req, res) => {
-  res.sendFile(path.join(__dirname, '..','admin', 'admin.html'));  
-});
 
 // Start the server
 const PORT = process.env.PORT || 3000;

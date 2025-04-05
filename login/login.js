@@ -1,4 +1,3 @@
-// login.js
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
 
@@ -16,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify({ username, password })
         });
+
+        console.log("Login response status:", response.status);  // Debug log
 
         if (response.ok) {
             const data = await response.json();
