@@ -8,8 +8,13 @@ const { posliHighscoreEmail } = require('./mailer');
 require('dotenv').config();
 
 const app = express();
-app.use(bodyParser.json()); // Parse JSON request bodies
-app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
+app.use(bodyParser.json()); 
+app.use(cors()); 
+
+// Get values from Heroku Config Vars
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
 // Connect to MongoDB database
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highscore', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,36 +32,38 @@ const highScoreSchema = new mongoose.Schema({
 // Create model from schema
 const HighScore = mongoose.model('HighScore', highScoreSchema);
 
-// Middleware for verifying JWT token
+
+// Middleware na overenie JWT tokenu
 function verifyToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];  
+  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1]; // Get the token
 
-  if (!token) return res.sendStatus(401);  
+  if (!token) return res.status(401).send('Unauthorized');
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);  
-    req.user = user;
-    next();  
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+      if (err) return res.status(403).send('Forbidden');
+      req.user = decoded;
+      next();
   });
 }
 
 
-// Login endpoint for admin
+// Endpoint pre login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Check credentials against environment variables
-  if (
-    username === process.env.ADMIN_USERNAME &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
-    // Generate JWT token (valid for 2 hours)
-    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '2h' });
-    res.json({ token });
+  // Check the username and password against Config Vars
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      // Generate token without expiration
+      const token = jwt.sign({ username }, JWT_SECRET); // Ensure no expiration time is set
+      return res.json({ token });
   } else {
-    res.status(401).send('Invalid credentials');
+      return res.status(401).send('Invalid credentials');
   }
+});
+
+// Endpoint for the admin panel (requires a valid token)
+app.get('/admin', verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'admin', 'admin.html'));
 });
 
 // GET endpoint to fetch top 10 highscores for a game
