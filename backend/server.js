@@ -1,5 +1,4 @@
-// Import necessary packages
-const path = require('path'); 
+// Import necessary packages 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
