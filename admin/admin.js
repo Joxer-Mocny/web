@@ -4,24 +4,27 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = '/login';  // If no token, redirect to login page
     }
 
-    // Debugging: Check if token is retrieved properly
+    // Debugging: Log the token to ensure it's being retrieved correctly
     console.log("Token from sessionStorage:", token);
 
-    // Send the token to the server as an Authorization header for protected routes
+    // Send the token to the server as an Authorization header for the protected route
     fetch('/admin', {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${token}`  // Pass token in the Authorization header
+            'Authorization': `Bearer ${token}`,  // Attach the token in the Authorization header
+            'Content-Type': 'application/json'  // Ensure the content type is set correctly
         }
-    }).then(response => {
+    })
+    .then(response => {
         console.log("Response status:", response.status);
         if (response.status === 200) {
-            // Continue with your admin page logic here
+            // Admin page logic
             console.log("Successfully authenticated");
         } else {
             window.location.href = '/login';  // If unauthorized, redirect to login
         }
-    }).catch(error => {
+    })
+    .catch(error => {
         console.error("Error fetching admin page:", error);
         window.location.href = '/login';  // If error, redirect to login
     });
@@ -32,4 +35,3 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = '/login';  // Redirect to login page
     });
 });
-
