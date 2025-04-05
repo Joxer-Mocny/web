@@ -14,7 +14,7 @@ app.use(cors());
 // Get values from Heroku Config Vars
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const JWT_SECRET = process.env.JWT_SECRET || 'Krokoknav_existuje';
+const JWT_SECRET = process.env.JWT_SECRET ;
 
 // Connect to MongoDB database
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/highscore', { useNewUrlParser: true, useUnifiedTopology: true })
