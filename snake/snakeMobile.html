@@ -1,39 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <!-- Meta tags for character set and responsive design -->
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- Page title -->
-   <title>Snake Game</title>
-   <!-- Link to external CSS stylesheet for styling the game -->
-   <link rel="stylesheet" href="snake.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="snake.css">
 </head>
 <body>
-   <!-- Game area containing the canvas for the Snake game -->
-   <div id="gameArea">
-       <!-- Canvas element where the game will be rendered -->
-       <canvas width="240" height="240"></canvas>
-   </div>
-   <!-- Button to restart the game -->
-   <button id="restartButton">Restart</button>
-   <!-- Instruction for the player -->
-   <h1>Click in the square and use arrows</h1>
-   
-   <!-- Control Buttons for Mobile -->
-   <div id="mobileControls" class="hidden">
-       <!-- Button for moving up -->
-       <button id="upButton">Up</button>
-       <div>
-           <!-- Buttons for moving left and right -->
-           <button id="leftButton">Left</button>
-           <button id="rightButton">Right</button>
-       </div>
-       <!-- Button for moving down -->
-       <button id="downButton">Down</button>
-   </div>
+  <div id="gameArea">
+      <canvas width="240" height="240"></canvas>
+  </div>
+  <button id="restartButton">Restart</button>
+  <h1>Click in the square and use arrows</h1>
+  
+  <div id="mobileControls" class="hidden">
+      <button id="upButton">Up</button>
+      <div>
+          <button id="leftButton">Left</button>
+          <button id="rightButton">Right</button>
+      </div>
+      <button id="downButton">Down</button>
+  </div>
 
-   <!-- Link to external JavaScript file for game logic and mobile controls -->
-   <script src="snakeMobile.js"></script>
+  <script src="snakeMobile.js"></script>
 </body>
 </html>

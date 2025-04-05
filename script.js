@@ -17,65 +17,74 @@ document.addEventListener("DOMContentLoaded", () => {
  
     // Get the modal element
     var modal = document.getElementById("modal");
+    var gameContainer = document.getElementById("gameContainer");
+    var span = document.getElementsByClassName("close")[0];
  
     // Get the buttons that open the modal
     var snakeBtn = document.getElementById("playSnakeButton");
     var racingBtn = document.getElementById("playRacingButton");
- 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var swordFightBtn = document.getElementById("playSwordFight");
+    var viewHighScoresBtn = document.getElementById("viewHighScoresButton");
  
     // When the user clicks the snake game button, open the modal
     snakeBtn.onclick = function() {
-        modal.style.display = "block"; // Show modal
-        loadGame('snake'); // Load snake game content
-        disableArrowScroll(); // Disable arrow key scrolling
+        modal.style.display = "block";
+        loadGame('snake');
+        disableArrowScroll();
     }
  
     // When the user clicks the racing game button, open the modal
     racingBtn.onclick = function() {
-        modal.style.display = "block"; // Show modal
-        loadGame('racing'); // Load racing game content
-        disableArrowScroll(); // Disable arrow key scrolling
+        modal.style.display = "block";
+        loadGame('racing');
+        disableArrowScroll();
+    }
+ 
+    // When the user clicks the sword fighting game button, open the modal
+    swordFightBtn.onclick = function() {
+        modal.style.display = "block";
+        loadGame('swordFight');
+        disableArrowScroll();
+    }
+ 
+    // When the user clicks the view high scores button, open the modal
+    viewHighScoresBtn.onclick = function() {
+        modal.style.display = "block";
+        loadGame('highScore');
     }
  
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-        modal.style.display = "none"; // Hide modal
-        unloadGame(); // Unload game content
-        enableArrowScroll(); // Enable arrow key scrolling
+        modal.style.display = "none";
+        unloadGame();
+        enableArrowScroll();
     }
  
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = "none"; // Hide modal
-            unloadGame(); // Unload game content
-            enableArrowScroll(); // Enable arrow key scrolling
+            modal.style.display = "none";
+            unloadGame();
+            enableArrowScroll();
         }
     }
  
     // Function to load the game
     function loadGame(gameType) {
-        var gameContainer = document.getElementById("gameContainer");
         if (gameType === 'snake') {
-            if (window.innerWidth >= 769) { // PC screen
-                gameContainer.innerHTML = '<iframe src="snake/snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
-            } else { // Mobile screen
-                gameContainer.innerHTML = '<iframe src="snake/snakeMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
-            }
+            gameContainer.innerHTML = '<iframe src="snake/snake.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
         } else if (gameType === 'racing') {
-            if (window.innerWidth >= 769) { // PC screen
-                gameContainer.innerHTML = '<iframe src="racingCar/racingCar.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
-            } else { // Mobile screen
-                gameContainer.innerHTML = '<iframe src="racingCar/racingCarMobile.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
-            }
+            gameContainer.innerHTML = '<iframe src="racingCar/racingCar.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        } else if (gameType === 'swordFight') {
+            gameContainer.innerHTML = '<iframe src="swordFight/swordFight.html" frameborder="0" style="width:100%; height:100%;"></iframe>';
+        } else if (gameType === 'highScore'){
+            gameContainer.innerHTML = '<iframe src="highScore/highScore.html" frameborder="0" style="width:100%; height:100%;"></iframe>'
         }
     }
  
+
     // Function to unload the game
     function unloadGame() {
-        var gameContainer = document.getElementById("gameContainer");
         gameContainer.innerHTML = ''; // Clear the game container to stop the game
     }
  

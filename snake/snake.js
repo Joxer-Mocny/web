@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
  
+    const highScorePopup = document.getElementById("highScorePopup");
+   const newScoreSpan = document.getElementById("newScore");
+   const playerNameInput = document.getElementById("playerName");
+   const submitHighScoreButton = document.getElementById("submitHighScore");
+
     // Check if all required elements are present
     if (!canvas || !ctx || !title || !restartButton) {
         console.error("Required elements are missing from the DOM");
@@ -26,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let gameStarted = false; 
     let fps = 10;
     let score = 0;
+    let isNewHighScore = false;
  
     // Start game on canvas click
     canvas.addEventListener("click", () => {
@@ -119,45 +125,68 @@ document.addEventListener("DOMContentLoaded", () => {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
+    
+        checkHighScore(score, 'snake', (newHighScore) => {
+            isNewHighScore = true;
+            newScoreSpan.textContent = newHighScore;
+            highScorePopup.style.display = "block";
+        });
     }
+
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName && isNewHighScore) {
+            submitHighScore('snake', playerName, score);
+            isNewHighScore = false; // zabráni opätovnému uloženiu
+        } else {
+            alert('Please enter your name');
+        }
+    };
  
     // Handle keyboard input for snake movement
     document.addEventListener("keydown", keyPush);
+
     function keyPush(event) {
-        switch (event.key) {
-            case "ArrowLeft":
-                if (velocityX !== 1) {
-                    velocityX = -1;
-                    velocityY = 0;
-                }
-                break;
-            case "ArrowUp":
-                if (velocityY !== 1) {
-                    velocityX = 0;
-                    velocityY = -1;
-                }
-                break;
-            case "ArrowRight":
-                if (velocityX !== -1) {
-                    velocityX = 1;
-                    velocityY = 0;
-                }
-                break;
-            case "ArrowDown":
-                if (velocityY !== -1) {
-                    velocityX = 0;
-                    velocityY = 1;
-                }
-                break;
-            default:
-                if (!gameIsRunning) location.reload(); // Reload page to restart game
-                break;
-        }
-        // Prevent default behavior (scrolling)
-        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
-            event.preventDefault();
-        }
+       // Check if the input field is focused
+       if (document.activeElement === playerNameInput) {
+           return; // Ignore key presses if typing in the input field
+       }
+    
+       switch (event.key) {
+           case "ArrowLeft":
+               if (velocityX !== 1) {
+                   velocityX = -1;
+                   velocityY = 0;
+               }
+               break;
+           case "ArrowUp":
+               if (velocityY !== 1) {
+                   velocityX = 0;
+                   velocityY = -1;
+               }
+               break;
+           case "ArrowRight":
+               if (velocityX !== -1) {
+                   velocityX = 1;
+                   velocityY = 0;
+               }
+               break;
+           case "ArrowDown":
+               if (velocityY !== -1) {
+                   velocityX = 0;
+                   velocityY = 1;
+               }
+               break;
+           default:
+               if (!gameIsRunning) location.reload(); // Reload page to restart game
+               break;
+       }
+       // Prevent default behavior (scrolling)
+       if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+           event.preventDefault();
+       }
     }
+    
  
     // Restart game on button click
     const restartBtn = document.getElementById("restartButton");

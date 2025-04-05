@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Canvas Sword Fighter</title>
+   <link rel="stylesheet" href="swordFight.css">
+</head>
+<body>
+   <canvas id="gameCanvas" width="800" height="200"></canvas>
+      <div id="highScorePopup" style="display: none;">
+        <h2>New High Score!</h2>
+        <p>Your Score: <span id="newScore"></span></p>
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="submitHighScore">Submit</button>
+    </div>
+   <button id="startButton">Start</button>
+   <div id="instructions">
+       <p>Controls:</p>
+       <ul>
+           <li>Move Left: Arrow Left</li>
+           <li>Move Right: Arrow Right</li>
+           <li>Attack: Space</li>
+           <li>Block: Shift</li>
+       </ul>
+   </div>
+
+
+
+   <script src="swordFight.js"></script>
+   <script src="../newHighScore/newHighScore.js"></script>
+</body>
+</html>

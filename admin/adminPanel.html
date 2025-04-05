@@ -1,0 +1,25 @@
+<!-- adminPanel.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="adminPanel.css">
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h2>Admin Panel – Manage High Scores</h2>
+
+  <label for="gameSelect">Select game:</label>
+  <select id="gameSelect">
+    <option value="snake">Snake</option>
+    <option value="racing">Racing Car</option>
+    <option value="swordFight">Sword Fighting</option>
+  </select>
+  <button onclick="loadScores()">Load Scores</button>
+
+  <div id="scores"></div>
+
+  <script src="adminPanel.js"></script>
+</body>
+</html>
