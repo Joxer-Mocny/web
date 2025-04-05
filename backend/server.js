@@ -32,17 +32,20 @@ const highScoreSchema = new mongoose.Schema({
 // Create model from schema
 const HighScore = mongoose.model('HighScore', highScoreSchema);
 
-
-// Middleware na overenie JWT tokenu
+// Middleware to verify JWT token
 function verifyToken(req, res, next) {
-  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1]; // Get the token
+  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];  // Get token from the Authorization header (Bearer token)
 
-  if (!token) return res.status(401).send('Unauthorized');
+  if (!token) {
+      return res.status(401).send('Unauthorized');  // If no token is provided
+  }
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if (err) return res.status(403).send('Forbidden');
-      req.user = decoded;
-      next();
+      if (err) {
+          return res.status(403).send('Forbidden');  // If token is invalid
+      }
+      req.user = decoded;  // Store the decoded token information into the request
+      next();  // Proceed to the next middleware (or route)
   });
 }
 
