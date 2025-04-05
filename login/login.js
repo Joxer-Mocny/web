@@ -1,3 +1,4 @@
+// login.js
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
 

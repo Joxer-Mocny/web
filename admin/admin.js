@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }).then(response => {
         if (response.status === 200) {
-            // You can handle further logic here
+            // Continue with your admin page logic here
         } else {
             window.location.href = '/login';  // If unauthorized, redirect to login
         }

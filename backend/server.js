@@ -32,9 +32,8 @@ const highScoreSchema = new mongoose.Schema({
 // Create model from schema
 const HighScore = mongoose.model('HighScore', highScoreSchema);
 
-// Middleware to verify JWT token
 function verifyToken(req, res, next) {
-  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];  // Get token from the Authorization header (Bearer token)
+  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];  // Get the token from Authorization header (Bearer token)
 
   if (!token) {
       return res.status(401).send('Unauthorized');  // If no token is provided
@@ -48,6 +47,7 @@ function verifyToken(req, res, next) {
       next();  // Proceed to the next middleware (or route)
   });
 }
+
 
 
 // Endpoint pre login
@@ -64,7 +64,7 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Endpoint for the admin panel (requires a valid token)
+// Protected route for admin panel (requires a valid token)
 app.get('/admin', verifyToken, (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'admin', 'admin.html'));
 });
