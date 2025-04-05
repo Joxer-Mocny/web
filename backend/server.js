@@ -30,14 +30,14 @@ const HighScore = mongoose.model('HighScore', highScoreSchema);
 // Middleware for verifying JWT token
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];  // Získaj token z Authorization header
+  const token = authHeader && authHeader.split(' ')[1];  
 
-  if (!token) return res.sendStatus(401);  // Unauthorized, ak token nie je prítomný
+  if (!token) return res.sendStatus(401);  
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);  // Forbidden, ak token je neplatný
+    if (err) return res.sendStatus(403);  
     req.user = user;
-    next();  // Pokračuj, ak je token platný
+    next();  
   });
 }
 
@@ -133,13 +133,13 @@ app.get('/', (req, res) => {
 });
 
 // Serve admin login page
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'admin/admin.html'));  
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'login/login.html'));  
 });
 
 // Serve admin panel page with token verification
-app.get('/adminPanel', verifyToken, (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'admin/adminPanel.html'));  
+app.get('/admin', verifyToken, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'admin/admin.html'));  
 });
 
 // Start the server
