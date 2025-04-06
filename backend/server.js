@@ -134,7 +134,7 @@ app.post('/submit-highscore', async (req, res) => {
 });
 
 // DELETE endpoint to delete a highscore
-app.delete('/highscore/:id', verifyToken, async (req, res) => {
+app.delete('/highscore/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const result = await HighScore.findByIdAndDelete(id);
@@ -147,6 +147,7 @@ app.delete('/highscore/:id', verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Error deleting highscore' });
   }
 });
+
 
 const path = require('path');
 
