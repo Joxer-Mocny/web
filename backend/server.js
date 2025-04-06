@@ -29,12 +29,12 @@ app.post('/login', (req, res) => {
 
 // Načítanie stránky prihlasovania na /prihlasenie
 app.get('/prihlasenie', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'prihlasenie.html'));
+    res.sendFile(path.join(__dirname,'..', 'public', 'prihlasenie.html'));
 });
 
 // Načítanie stránky delete.html po prihlásení
 app.get('/delete', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'delete.html'));
+    res.sendFile(path.join(__dirname, '..','public', 'delete.html'));
 });
 
 // Štart servera
