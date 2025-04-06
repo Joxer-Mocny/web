@@ -52,6 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Failed to delete item.");
         }
     }
+
+     // Logout button functionality
+     const logoutBtn = document.getElementById("logoutBtn");
+     if (logoutBtn) {
+         logoutBtn.addEventListener("click", () => {
+             fetch('/logout', { method: 'POST' }) // Send POST request to the logout endpoint
+                 .then(() => {
+                     window.location.href = '/login';  // Redirect to login page after logging out
+                 })
+                 .catch(error => {
+                     console.error('Logout error:', error);
+                     alert('Logout failed!');
+                 });
+         });
+     }
     
     // Call the loadHighscores function when the page loads
     loadHighscores();
