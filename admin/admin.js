@@ -1,37 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Check if the user is logged in
-    fetch('/admin', {
-        method: 'GET',
-        credentials: 'same-origin',
-    })
-    .then(response => {
-        if (response.status !== 200) {
-            window.location.href = '/prihlasenie';  // Redirect to login if the user is not logged in
-        } else {
-            loadHighscores();  // Load the high scores if the user is logged in
-        }
-    })
-    .catch(error => {
-        console.error("Error fetching admin page:", error);
-        window.location.href = '/prihlasenie';  // If there's an error, redirect to login
-    });
+    // Set the default game variable
+    let game = 'snake';
 
-    // Function to load high scores from the database
+    // Get the game selection dropdown element
+    const gameSelect = document.getElementById("gameSelect");
+
+    // Set the initial value of the game selection dropdown
+    if (gameSelect) {
+        gameSelect.value = game;
+    }
+
+    // Add an event listener to detect changes in game selection
+    if (gameSelect) {
+        gameSelect.addEventListener("change", (event) => {
+            game = event.target.value;
+            console.log("Selected game:", game);
+            loadHighscores(); // Reload highscores for the selected game
+        });
+    }
+
+    // Function to load high scores for the selected game
     async function loadHighscores() {
-        const game = 'snake';  // You can change this to dynamically select a game
         const response = await fetch(`/highscores/${game}`);
         const highscores = await response.json();
         const highscoreList = document.getElementById("highscoreItems");
 
-        highscores.forEach(score => {
-            const li = document.createElement("li");
-            li.textContent = `${score.name}: ${score.score}`;
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => deleteHighscore(score._id));
-            li.appendChild(deleteButton);
-            highscoreList.appendChild(li);
-        });
+        if (highscoreList) {
+            highscoreList.innerHTML = ''; // Clear existing high scores
+            highscores.forEach(score => {
+                const li = document.createElement("li");
+                li.textContent = `${score.name}: ${score.score}`;
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", () => deleteHighscore(score._id));
+                li.appendChild(deleteButton);
+                highscoreList.appendChild(li);
+            });
+        }
     }
 
     // Function to delete a high score
@@ -41,18 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (response.ok) {
-            alert("The entry has been deleted.");
-            loadHighscores();  // Reload the high scores after deletion
+            alert("Item was deleted.");
+            loadHighscores();  // Reload highscores after deletion
         } else {
-            alert("Failed to delete the entry.");
+            alert("Failed to delete item.");
         }
     }
 
-    // Logout functionality
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-        fetch('/logout', { method: 'POST' })
-            .then(() => {
-                window.location.href = '/prihlasenie';  // After logout, redirect to the login page
-            });
-    });
+    // Call the loadHighscores function when the page loads
+    loadHighscores();
 });
