@@ -21,13 +21,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your_secret_key',  // Nastav tajný kľúč pre cookies
+  secret: process.env.SESSION_SECRET || 'your_secret_key',  
   resave: false,
   saveUninitialized: true,
   cookie: {
-      secure: false, // Pre HTTPS nastav na true
-      httpOnly: true, // Cookies nebudú prístupné cez JavaScript
-      sameSite: 'strict',  // Ochrana proti CSRF útokom
+      secure: false, 
+      httpOnly: true, 
+      sameSite: 'strict',  
   }
 }));
 
@@ -89,7 +89,7 @@ app.get('/admin', (req, res) => {
   if (!req.session.user) {
       return res.status(401).send('Unauthorized');
   }
-  res.sendFile(path.join(__dirname, '..', 'admin.html'));
+  res.sendFile(path.join(__dirname, '..', 'admin' 'admin.html'));
 });
 
 // Endpoint for logout
