@@ -41,10 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to delete a high score
     async function deleteHighscore(id) {
-        const response = await fetch(`/delete/${id}`, {
+        const response = await fetch(`/highscore/${id}`, {
             method: 'DELETE',
         });
-
+    
         if (response.ok) {
             alert("Item was deleted.");
             loadHighscores();  // Reload highscores after deletion
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Failed to delete item.");
         }
     }
-
+    
     // Call the loadHighscores function when the page loads
     loadHighscores();
 });

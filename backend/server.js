@@ -88,12 +88,11 @@ const HighScore = mongoose.model('HighScore', highScoreSchema);
 app.get('/highscores/:game', async (req, res) => {
   const game = req.params.game;
   try {
-    // Snake scores are sorted ascending (lower = better), others descending
-    const sortOrder = game === 'snake' ? 1 : -1;
-
+    // Fetch and sort all scores for the selected game
+    const sortOrder = -1; // Sorting in descending order by score
     const scores = await HighScore.find({ game })
       .sort({ score: sortOrder })
-      .limit(10);
+      .limit(10);  
 
     res.json(scores);
   } catch (error) {
