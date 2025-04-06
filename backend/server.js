@@ -34,7 +34,7 @@ app.get('/prihlasenie', (req, res) => {
 
 // Načítanie stránky delete.html po prihlásení
 app.get('/delete', (req, res) => {
-    res.sendFile(path.join(__dirname, '..','public', 'delete.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'delete.html'));
 });
 
 // Štart servera
