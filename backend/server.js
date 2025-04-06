@@ -11,6 +11,26 @@ const app = express();
 app.use(bodyParser.json()); 
 app.use(cors()); 
 
+const corsOptions = {
+  origin: '*', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true  
+};
+
+app.use(cors(corsOptions));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your_secret_key',  // Nastav tajný kľúč pre cookies
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+      secure: false, // Pre HTTPS nastav na true
+      httpOnly: true, // Cookies nebudú prístupné cez JavaScript
+      sameSite: 'strict',  // Ochrana proti CSRF útokom
+  }
+}));
+
 // Get values from Heroku Config Vars
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
