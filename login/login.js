@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Login response status:", response.status);  // Debug log
 
         if (response.ok) {
-            const data = await response.json();
-            sessionStorage.setItem('authToken', data.token); // Store token in sessionStorage
             window.location.href = '/admin'; // Redirect to admin page
         } else {
             alert('Login failed');
