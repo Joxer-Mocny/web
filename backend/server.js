@@ -89,7 +89,7 @@ app.get('/admin', (req, res) => {
   if (!req.session.user) {
       return res.status(401).send('Unauthorized');
   }
-  res.sendFile(path.join(__dirname, '..', 'admin' 'admin.html'));
+  res.sendFile(path.join(__dirname, '..', 'admin', 'admin.html'));
 });
 
 // Endpoint for logout
