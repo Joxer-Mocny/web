@@ -49,28 +49,6 @@ const highScoreSchema = new mongoose.Schema({
    date: { type: Date, default: Date.now }
 });
 
-// Create model from schema
-const HighScore = mongoose.model('HighScore', highScoreSchema);
-
-function verifyToken(req, res, next) {
-  const token = req.header('Authorization') && req.header('Authorization').split(' ')[1];  // Get the token from Authorization header (Bearer token)
-
-  if (!token) {
-      return res.status(401).send('Unauthorized');  // If no token is provided
-  }
-
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if (err) {
-          return res.status(403).send('Forbidden');  // If token is invalid
-      }
-      req.user = decoded;  // Store the decoded token information into the request
-      console.log("Decoded user data:", req.user);  // Debug log for decoded user
-      next();  // Proceed to the next middleware (or route)
-  });
-}
-
-
-
 // Endpoint pre login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -103,6 +81,8 @@ app.post('/logout', (req, res) => {
   });
 });
 
+// Create model from schema
+const HighScore = mongoose.model('HighScore', highScoreSchema);
 
 // GET endpoint to fetch top 10 highscores for a game
 app.get('/highscores/:game', async (req, res) => {
@@ -120,6 +100,7 @@ app.get('/highscores/:game', async (req, res) => {
     res.status(500).json({ error: 'Error fetching high scores' });
   }
 });
+
 
 // POST endpoint to submit a new highscore
 app.post('/submit-highscore', async (req, res) => {
