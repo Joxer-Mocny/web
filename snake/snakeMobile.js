@@ -119,11 +119,25 @@ document.addEventListener("DOMContentLoaded", () => {
  
     // Handle game over
     function gameOver() {
-        title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
-        mobileControls.style.display = "none"; // Hide mobile controls on game over
+        checkHighScore(score, 'snake', (newHighScore) => {
+            isNewHighScore = true;
+            newScoreSpan.textContent = newHighScore;
+            highScorePopup.style.display = "block";
+        });
     }
+
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName && isNewHighScore) {
+            submitHighScore('snake', playerName, score);
+            isNewHighScore = false;
+            highScorePopup.style.display = "none";
+        } else {
+            alert('Please enter your name');
+        }
+    };
  
     // Movement functions for mobile controls
     function moveleft() {

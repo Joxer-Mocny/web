@@ -168,8 +168,25 @@ document.addEventListener("DOMContentLoaded", () => {
     function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
-        mobileControls.style.display = "none"; 
+        mobileControls.style.display = "none"; // Hide mobile controls
+        // Check for new highscore and show input form
+        checkHighScore(score, 'racing', (newHighScore) => {
+            isNewHighScore = true;
+            newScoreSpan.textContent = newHighScore;
+            highScorePopup.style.display = "block";
+        });
     }
+
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName && isNewHighScore) {
+            submitHighScore('racing', playerName, score); // Function to save highscore
+            isNewHighScore = false; // Prevent submitting again
+            highScorePopup.style.display = "none"; // Hide highscore form
+        } else {
+            alert('Please enter your name');
+        }
+    };
  
     // Event listeners for mobile controls
     leftButton.addEventListener("touchstart", () => {

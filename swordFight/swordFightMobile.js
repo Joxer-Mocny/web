@@ -182,6 +182,15 @@ if (player.x === 0 && opponent.x < player.x + player.width) {
 } else if (player.x === canvas.width - player.width && opponent.x > player.x - opponent.width) {
     opponent.x = player.x - opponent.width;
 }
+if (player.health <= 0 || opponent.health <= 0) {
+    isGameOver = true;
+    gameRunning = false;
+    elapsedTime = (Date.now() - startTime) / 1000;
+    checkHighScore(elapsedTime, 'swordFight', (newHighScore) => {
+      newScoreSpan.textContent = newHighScore;
+      highScorePopup.style.display = "block";
+    });
+  }
 }
 
 // Function to reset player and opponent positions
@@ -250,6 +259,17 @@ if (isGameOver) {
     ctx.font = '24px Arial';
     ctx.fillText(`Time: ${elapsedTime.toFixed(2)} seconds`, canvas.width / 2, canvas.height / 2 + 40);
 }
+
+// Submit highscore
+submitHighScoreButton.onclick = function() {
+    const playerName = playerNameInput.value.trim();
+    if (playerName) {
+      submitHighScore('swordFight', playerName, elapsedTime);
+      highScorePopup.style.display = "none";
+    } else {
+      alert('Please enter your name');
+    }
+  };
 
 requestAnimationFrame(gameLoop); // Request the next frame
 }
