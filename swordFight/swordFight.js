@@ -1,6 +1,9 @@
 // Get references to the canvas and its drawing context
+// Canvas element and context
 const canvas = document.getElementById('gameCanvas');
+// 2D rendering context
 const ctx = canvas.getContext('2d');
+// Start game button
 const startButton = document.getElementById('startButton');
 const highScorePopup = document.getElementById("highScorePopup");
 const newScoreSpan = document.getElementById("newScore");
@@ -216,6 +219,7 @@ function drawHealthBars() {
 }
 
 // Main game loop function
+// Main game loop
 function gameLoop() {
    ctx.clearRect(0, 0, canvas.width, canvas.height);
    update();
@@ -296,6 +300,7 @@ startButton.addEventListener('click', () => {
 });
 
 // Submit high score
+// Button click listener for submitting highscore
 submitHighScoreButton.onclick = function() {
     const playerName = playerNameInput.value.trim();
     if (playerName && isNewHighScore) {

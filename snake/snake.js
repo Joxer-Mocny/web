@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to DOM elements
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
+    // Canvas element and context
+const canvas = document.querySelector("canvas");
+    // 2D rendering context
+const ctx = canvas.getContext("2d");
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
  
@@ -27,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let snakeLength = 4;
     let foodPosX = 0;
     let foodPosY = 0;
-    let gameIsRunning = false;
+    // Game running status
+let gameIsRunning = false;
     let gameStarted = false; 
     let fps = 10;
     let score = 0;
@@ -40,8 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
  
-    // Initialize and start the game
-    function startGame() {
+ 
+    // Function to start the game
+function startGame() {
         score = 0;
         title.textContent = score;
         snakePosX = 0;
@@ -57,8 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
         gameLoop();
     }
  
+  
     // Main game loop
-    function gameLoop() {
+function gameLoop() {
         if (gameIsRunning) {
             drawStuff();
             moveStuff();
@@ -66,8 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
  
-    // Move the snake and handle collisions
-    function moveStuff() {
+
+    // Function to handle snake movement
+function moveStuff() {
         snakePosX += snakeSpeed * velocityX;
         snakePosY += snakeSpeed * velocityY;
  
@@ -97,7 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Draw the game elements
-    function drawStuff() {
+    // Function to draw game elements
+function drawStuff() {
         rectangle("black", 0, 0, canvas.width, canvas.height); // Clear canvas
         drawGrid(); // Draw grid
         rectangle("silver", foodPosX, foodPosY, tileSize, tileSize); // Draw food
@@ -121,7 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Handle game over
-    function gameOver() {
+    // Function to handle game over state
+function gameOver() {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
@@ -133,7 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    submitHighScoreButton.onclick = function() {
+    // High score submission logic
+submitHighScoreButton.onclick = function() {
         const playerName = playerNameInput.value.trim();
         if (playerName && isNewHighScore) {
             submitHighScore('snake', playerName, score);

@@ -1,8 +1,12 @@
+// Add event listeners
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to the canvas and its context
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-    const startButton = document.getElementById("startButton");
+    // Canvas element and context
+const canvas = document.querySelector("canvas");
+    // 2D rendering context
+const ctx = canvas.getContext("2d");
+    // Start game button
+const startButton = document.getElementById("startButton");
     const highScorePopup = document.getElementById("highScorePopup");
     const newScoreSpan = document.getElementById("newScore");
     const playerNameInput = document.getElementById("playerName");
@@ -17,12 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let obstacles = [];
     let bullets = [];
     let ammo = 1;
-    let gameIsRunning = false;
+    // Game status flag
+let gameIsRunning = false;
     let score = 0;
     let isNewHighScore = false;
  
     // Function to start the game
-    function startGame() {
+    // Function to initialize and start the game
+function startGame() {
         carX = canvas.width / 2 - 15;
         carY = canvas.height - 60;
         velocityX = 0;
@@ -36,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Main game loop
-    function gameLoop() {
+    // Main game loop
+function gameLoop() {
         if (gameIsRunning) {
             updateGame();
             drawGame();
@@ -45,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Update game state
-    function updateGame() {
+    // Update the game state
+function updateGame() {
         carX += velocityX;
         if (carX < 0) carX = 0;
         if (carX + carWidth > canvas.width) carX = canvas.width - carWidth;
@@ -103,7 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Draw game state
-    function drawGame() {
+    // Draw the current state of the game
+function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "red";
         ctx.fillRect(carX, carY, carWidth, carHeight);
@@ -137,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Handle game over
-    function gameOver() {
+    // Handle game over state
+function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
     
@@ -148,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
  
-    submitHighScoreButton.onclick = function() {
+    // Button click listener for submitting highscore
+submitHighScoreButton.onclick = function() {
         const playerName = playerNameInput.value.trim();
         if (playerName && isNewHighScore) {
             submitHighScore('racing', playerName, score);
@@ -159,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
  
     // Event listeners for keyboard controls
-    document.addEventListener("keydown", (event) => {
+    // Add event listeners
+document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowLeft") {
             velocityX = -5;
         } else if (event.key === "ArrowRight") {
@@ -170,7 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
  
-    document.addEventListener("keyup", () => {
+    // Add event listeners
+document.addEventListener("keyup", () => {
         velocityX = 0;
     });
  

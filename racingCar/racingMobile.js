@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to the canvas and its context
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
+    // Canvas element and context
+const canvas = document.querySelector("canvas");
+    // 2D rendering context
+const ctx = canvas.getContext("2d");
     // Get references to the buttons and instructions
-    const startButton = document.getElementById("startButton");
+    // Start button element
+const startButton = document.getElementById("startButton");
     const leftButton = document.getElementById("leftButton");
     const rightButton = document.getElementById("rightButton");
     const shootButton = document.getElementById("shoot");
@@ -19,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let velocityX = 0;
     let obstacles = [];
     let bullets = [];
-    let gameIsRunning = false;
+    // Game running status
+let gameIsRunning = false;
     let score = 0;
     let ammo = 1;
  
     // Function to start the game
-    function startGame() {
+    // Function to start the game
+function startGame() {
         // Reset game variables
         carX = canvas.width / 2 - 15;
         carY = canvas.height - 60;
@@ -43,7 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Main game loop
-    function gameLoop() {
+    // Main game loop
+function gameLoop() {
         if (gameIsRunning) {
             updateGame(); // Update game state
             drawGame();   // Draw game state
@@ -52,7 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Update game state
-    function updateGame() {
+    // Function to update the game state
+function updateGame() {
         // Update car position
         carX += velocityX;
         if (carX < 0) carX = 0;
@@ -165,28 +172,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
  
     // Handle game over
-    function gameOver() {
+    // Function to handle game over state
+function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
-        mobileControls.style.display = "none"; // Hide mobile controls
-        // Check for new highscore and show input form
-        checkHighScore(score, 'racing', (newHighScore) => {
-            isNewHighScore = true;
-            newScoreSpan.textContent = newHighScore;
-            highScorePopup.style.display = "block";
-        });
+        mobileControls.style.display = "none"; 
     }
-
-    submitHighScoreButton.onclick = function() {
-        const playerName = playerNameInput.value.trim();
-        if (playerName && isNewHighScore) {
-            submitHighScore('racing', playerName, score); // Function to save highscore
-            isNewHighScore = false; // Prevent submitting again
-            highScorePopup.style.display = "none"; // Hide highscore form
-        } else {
-            alert('Please enter your name');
-        }
-    };
  
     // Event listeners for mobile controls
     leftButton.addEventListener("touchstart", () => {

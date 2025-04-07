@@ -1,8 +1,11 @@
 // Get references to the canvas and its context for drawing
+// Canvas element and context
 const canvas = document.getElementById('gameCanvas');
+// 2D rendering context
 const ctx = canvas.getContext('2d');
 
 // Get references to the control buttons
+// Start game button
 const startButton = document.getElementById('startButton');
 const leftButton = document.getElementById('leftButton');
 const rightButton = document.getElementById('rightButton');
@@ -235,6 +238,7 @@ ctx.strokeRect(canvas.width - 110, 10, 100, 5);
 }
 
 // Main game loop function
+// Main game loop
 function gameLoop() {
 ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 update(); // Update game state
@@ -261,6 +265,7 @@ if (isGameOver) {
 }
 
 // Submit highscore
+// Button click listener for submitting highscore
 submitHighScoreButton.onclick = function() {
     const playerName = playerNameInput.value.trim();
     if (playerName) {
@@ -334,6 +339,7 @@ blockButton.addEventListener('touchstart', () => {
  player.isBlocking = true; // Start blocking
 });
 
+// Add event listeners
 document.addEventListener('touchend', (e) => {
  if (e.target === leftButton || e.target === rightButton) {
      moveDirection = 0; // Stop moving when the touch ends
