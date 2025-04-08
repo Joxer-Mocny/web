@@ -1,11 +1,8 @@
 // Get references to the canvas and its context for drawing
-// Canvas element and context
 const canvas = document.getElementById('gameCanvas');
-// 2D rendering context
 const ctx = canvas.getContext('2d');
 
 // Get references to the control buttons
-// Start game button
 const startButton = document.getElementById('startButton');
 const leftButton = document.getElementById('leftButton');
 const rightButton = document.getElementById('rightButton');
@@ -185,15 +182,6 @@ if (player.x === 0 && opponent.x < player.x + player.width) {
 } else if (player.x === canvas.width - player.width && opponent.x > player.x - opponent.width) {
     opponent.x = player.x - opponent.width;
 }
-if (player.health <= 0 || opponent.health <= 0) {
-    isGameOver = true;
-    gameRunning = false;
-    elapsedTime = (Date.now() - startTime) / 1000;
-    checkHighScore(elapsedTime, 'swordFight', (newHighScore) => {
-      newScoreSpan.textContent = newHighScore;
-      highScorePopup.style.display = "block";
-    });
-  }
 }
 
 // Function to reset player and opponent positions
@@ -238,7 +226,6 @@ ctx.strokeRect(canvas.width - 110, 10, 100, 5);
 }
 
 // Main game loop function
-// Main game loop
 function gameLoop() {
 ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 update(); // Update game state
@@ -263,18 +250,6 @@ if (isGameOver) {
     ctx.font = '24px Arial';
     ctx.fillText(`Time: ${elapsedTime.toFixed(2)} seconds`, canvas.width / 2, canvas.height / 2 + 40);
 }
-
-// Submit highscore
-// Button click listener for submitting highscore
-submitHighScoreButton.onclick = function() {
-    const playerName = playerNameInput.value.trim();
-    if (playerName) {
-      submitHighScore('swordFight', playerName, elapsedTime);
-      highScorePopup.style.display = "none";
-    } else {
-      alert('Please enter your name');
-    }
-  };
 
 requestAnimationFrame(gameLoop); // Request the next frame
 }
@@ -339,7 +314,6 @@ blockButton.addEventListener('touchstart', () => {
  player.isBlocking = true; // Start blocking
 });
 
-// Add event listeners
 document.addEventListener('touchend', (e) => {
  if (e.target === leftButton || e.target === rightButton) {
      moveDirection = 0; // Stop moving when the touch ends
