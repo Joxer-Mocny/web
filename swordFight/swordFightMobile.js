@@ -9,12 +9,6 @@ const rightButton = document.getElementById('rightButton');
 const attackButton = document.getElementById('attackButton');
 const blockButton = document.getElementById('blockButton');
 
- // Highscore elements
-const highScorePopup = document.getElementById("highScorePopup");
-const newScoreSpan = document.getElementById("newScore");
-const playerNameInput = document.getElementById("playerName");
-const submitHighScoreButton = document.getElementById("submitHighScore");
-
 // Define the player object with initial properties
 let player = {
 x: 50, // Initial x position
@@ -49,7 +43,6 @@ let isGameOver = false;
 let startTime = 0;
 let elapsedTime = 0;
 let moveDirection = 0; // Movement direction: 0 = no movement, -1 = left, 1 = right
-let isNewHighScore = false;
 
 // Function to draw the player character
 function drawPixelMan(x, y, isAttacking, isBlocking) {
@@ -158,15 +151,6 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
-
-            // **Change: Check if the score is a new highscore only when the opponent loses**
-            checkHighScore(score, 'swordFight', (newHighScore) => {
-                if (newHighScore) {
-                    isNewHighScore = true;
-                    newScoreSpan.textContent = score;
-                    highScorePopup.style.display = "block"; // Show highscore popup
-                }
-            });
         }
     } else if (opponent.isAttacking && !player.isBlocking) {
         player.health--;
@@ -192,119 +176,6 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
     }
 }
 
-// **Function to check if the current score is a new highscore from the server**
-function checkHighScore(currentScore, game, callback) {
-    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(scores => {
-            const sortedScores = scores
-                .filter(s => s.game === game)
-                .sort((a, b) => b.score - a.score); 
-
-            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
-            if (currentScore > highestScore) {
-                callback(currentScore); // If the score is new, call the callback function
-            }
-        })
-        .catch(error => console.error('Error fetching high scores:', error));
-}
-
-// **Function to submit the highscore to the backend**
-submitHighScoreButton.onclick = function() {
-    const playerName = playerNameInput.value.trim();
-    if (playerName && isNewHighScore) {
-        submitHighScore('swordFight', playerName, score); // Submit the score to the backend
-        isNewHighScore = false;
-        highScorePopup.style.display = "none"; // Hide the popup
-    } else {
-        alert('Please enter your name');
-    }
-};
-
-// **Function to submit the highscore to the backend**
-function submitHighScore(game, playerName, score) {
-    const newHighScore = { game, name: playerName, score };
-    fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newHighScore)
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('High score submitted!');
-            document.getElementById("highScorePopup").style.display = "none";
-            document.getElementById("playerName").value = ''; // Clear the name field
-        } else {
-            alert('Error submitting high score');
-        }
-    })
-    .catch(error => console.error('Error submitting high score:', error));
-}
-
-
-function checkHighScore(currentScore, game, callback) {
-    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(scores => {
-            const sortedScores = scores
-                .filter(s => s.game === game)
-                .sort((a, b) => b.score - a.score); 
-
-            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
-            if (currentScore > highestScore) {
-                callback(currentScore); 
-            }
-        })
-        .catch(error => console.error('Error fetching high scores:', error));
-}
-
-
-submitHighScoreButton.onclick = function() {
-    const playerName = playerNameInput.value.trim();
-    if (playerName && isNewHighScore) {
-        submitHighScore('swordFight', playerName, score); 
-        isNewHighScore = false;
-        highScorePopup.style.display = "none"; 
-    } else {
-        alert('Please enter your name');
-    }
-};
-
-
-function submitHighScore(game, playerName, score) {
-    const newHighScore = { game, name: playerName, score };
-    fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newHighScore)
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('High score submitted!');
-            document.getElementById("highScorePopup").style.display = "none";
-            document.getElementById("playerName").value = ''; 
-        } else {
-            alert('Error submitting high score');
-        }
-    })
-    .catch(error => console.error('Error submitting high score:', error));
-}
-
-
 // Prevent opponent from passing through player when player is against the wall
 if (player.x === 0 && opponent.x < player.x + player.width) {
     opponent.x = player.x + player.width;
@@ -328,12 +199,12 @@ function resetGame() {
 player.x = 50;
 player.isAttacking = false;
 player.isBlocking = false;
-player.health = 10;
+player.health = 1;
 opponent.x = 300;
 opponent.isAttacking = false;
 opponent.isBlocking = false;
 opponent.attackCooldown = 0;
-opponent.health = 10;
+opponent.health = 1;
 message = '';
 fadeOpacity = 0;
 isGameOver = false;
