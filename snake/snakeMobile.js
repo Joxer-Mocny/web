@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to DOM elements
-    // Canvas element and context
-const canvas = document.querySelector("canvas");
-    // 2D rendering context
-const ctx = canvas.getContext("2d");
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
     const upButton = document.getElementById("upButton");
@@ -23,8 +21,7 @@ const ctx = canvas.getContext("2d");
     let snakeLength = 4;
     let foodPosX = 0;
     let foodPosY = 0;
-    // Game running status
-let gameIsRunning = false;
+    let gameIsRunning = false;
     let gameStarted = false; 
     let fps = 5;
     let score = 0;
@@ -37,8 +34,7 @@ let gameIsRunning = false;
     });
  
     // Initialize and start the game
-    // Function to start the game
-function startGame() {
+    function startGame() {
         score = 0;
         title.textContent = score;
         snakePosX = 0;
@@ -56,8 +52,7 @@ function startGame() {
     }
  
     // Main game loop
-    // Main game loop
-function gameLoop() {
+    function gameLoop() {
         if (gameIsRunning) {
             drawStuff();
             moveStuff();
@@ -69,8 +64,7 @@ function gameLoop() {
     resetFood();
  
     // Move the snake and handle collisions
-    // Function to handle snake movement
-function moveStuff() {
+    function moveStuff() {
         snakePosX += snakeSpeed * velocityX;
         snakePosY += snakeSpeed * velocityY;
  
@@ -100,8 +94,7 @@ function moveStuff() {
     }
  
     // Draw the game elements
-    // Function to draw game elements
-function drawStuff() {
+    function drawStuff() {
         rectangle("black", 0, 0, canvas.width, canvas.height); // Clear canvas
         drawGrid(); // Draw grid
         rectangle("silver", foodPosX, foodPosY, tileSize, tileSize); // Draw food
@@ -125,8 +118,7 @@ function drawStuff() {
     }
  
     // Handle game over
-    // Function to handle game over state
-function gameOver() {
+    function gameOver() {
         title.innerHTML = `☠️ <strong> ${score} </strong> ☠️`;
         gameIsRunning = false;
         restartButton.style.display = "block";
@@ -190,5 +182,4 @@ function gameOver() {
     downButton.addEventListener("click", movedown);
     leftButton.addEventListener("click", moveleft);
     rightButton.addEventListener("click", moveright);
- });
- 
+});
