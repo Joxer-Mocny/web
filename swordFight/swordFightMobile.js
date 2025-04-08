@@ -9,6 +9,11 @@ const rightButton = document.getElementById('rightButton');
 const attackButton = document.getElementById('attackButton');
 const blockButton = document.getElementById('blockButton');
 
+const highScorePopup = document.getElementById("highScorePopup");
+const newScoreSpan = document.getElementById("newScore");
+const playerNameInput = document.getElementById("playerName");
+const submitHighScoreButton = document.getElementById("submitHighScore");
+
 // Define the player object with initial properties
 let player = {
 x: 50, // Initial x position
@@ -41,7 +46,9 @@ let message = '';
 let fadeOpacity = 0;
 let isGameOver = false;
 let startTime = 0;
+let score = 0;
 let elapsedTime = 0;
+let isNewHighScore = false; 
 let moveDirection = 0; // Movement direction: 0 = no movement, -1 = left, 1 = right
 
 // Function to draw the player character
@@ -151,7 +158,8 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
-            checkHighScore(elapsedTime, 'swordFight');
+            score = elapsedTime;
+            checkHighScore(score, 'swordFight');
         }
     } else if (opponent.isAttacking && !player.isBlocking) {
         player.health--;
