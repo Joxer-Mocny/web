@@ -9,6 +9,12 @@ const rightButton = document.getElementById('rightButton');
 const attackButton = document.getElementById('attackButton');
 const blockButton = document.getElementById('blockButton');
 
+ // Highscore elements
+const highScorePopup = document.getElementById("highScorePopup");
+const newScoreSpan = document.getElementById("newScore");
+const playerNameInput = document.getElementById("playerName");
+const submitHighScoreButton = document.getElementById("submitHighScore");
+
 // Define the player object with initial properties
 let player = {
 x: 50, // Initial x position
@@ -18,7 +24,7 @@ height: 80, // Height of the player
 speed: 5, // Movement speed
 isAttacking: false, // Attack state
 isBlocking: false, // Block state
-health: 10 // Health points
+health: 1 // Health points
 };
 
 // Define the opponent object with initial properties
@@ -32,7 +38,7 @@ direction: -1, // Movement direction
 isAttacking: false, // Attack state
 isBlocking: false, // Block state
 attackCooldown: 0, // Cooldown for attacks
-health: 10 // Health points
+health: 1 // Health points
 };
 
 // Game state variables
@@ -43,6 +49,7 @@ let isGameOver = false;
 let startTime = 0;
 let elapsedTime = 0;
 let moveDirection = 0; // Movement direction: 0 = no movement, -1 = left, 1 = right
+let isNewHighScore = false;
 
 // Function to draw the player character
 function drawPixelMan(x, y, isAttacking, isBlocking) {
@@ -151,6 +158,13 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
+            checkHighScore(score, 'swordFight', (newHighScore) => {
+                if (newHighScore) {
+                    isNewHighScore = true;
+                    newScoreSpan.textContent = score;
+                    highScorePopup.style.display = "block"; 
+                }
+            });
         }
     } else if (opponent.isAttacking && !player.isBlocking) {
         player.health--;
@@ -163,10 +177,10 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
         }
     } else {
         if (player.isAttacking && opponent.isBlocking) {
-            player.isAttacking = false; // Reset player's attack if blocked
+            player.isAttacking = false; 
         }
         if (opponent.isAttacking && player.isBlocking) {
-            opponent.isAttacking = false; // Reset opponent's attack if blocked
+            opponent.isAttacking = false; 
         }
         if (player.x < opponent.x) {
             player.x = opponent.x - player.width;
@@ -175,6 +189,62 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
         }
     }
 }
+
+function checkHighScore(currentScore, game, callback) {
+    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(scores => {
+            const sortedScores = scores
+                .filter(s => s.game === game)
+                .sort((a, b) => b.score - a.score); 
+
+            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+            if (currentScore > highestScore) {
+                callback(currentScore); 
+            }
+        })
+        .catch(error => console.error('Error fetching high scores:', error));
+}
+
+
+submitHighScoreButton.onclick = function() {
+    const playerName = playerNameInput.value.trim();
+    if (playerName && isNewHighScore) {
+        submitHighScore('swordFight', playerName, score); 
+        isNewHighScore = false;
+        highScorePopup.style.display = "none"; 
+    } else {
+        alert('Please enter your name');
+    }
+};
+
+
+function submitHighScore(game, playerName, score) {
+    const newHighScore = { game, name: playerName, score };
+    fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newHighScore)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('High score submitted!');
+            document.getElementById("highScorePopup").style.display = "none";
+            document.getElementById("playerName").value = ''; 
+        } else {
+            alert('Error submitting high score');
+        }
+    })
+    .catch(error => console.error('Error submitting high score:', error));
+}
+
 
 // Prevent opponent from passing through player when player is against the wall
 if (player.x === 0 && opponent.x < player.x + player.width) {
