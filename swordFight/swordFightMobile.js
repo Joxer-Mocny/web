@@ -142,7 +142,6 @@ if (opponent.attackCooldown > 0) {
 }
 
 // Handle collision and attack/block interactions
-// Game logic to detect game over (when opponent's health is 0)
 if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.width) {
     if (player.isAttacking && !opponent.isBlocking) {
         opponent.health--;
@@ -152,15 +151,7 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
-
-            // **Change: Check if the score is a new highscore when the opponent loses**
-            checkHighScore(score, 'swordFight', (newHighScore) => {
-                if (newHighScore) {
-                    isNewHighScore = true;
-                    newScoreSpan.textContent = score;
-                    highScorePopup.style.display = "block"; // Show highscore popup
-                }
-            });
+            checkHighScore(score, 'swordFight');
         }
     } else if (opponent.isAttacking && !player.isBlocking) {
         player.health--;
@@ -186,29 +177,33 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
     }
 }
 
-// **Function to check if the current score is a new highscore from the server**
-function checkHighScore(currentScore, game, callback) {
-    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(scores => {
-            const sortedScores = scores
-                .filter(s => s.game === game)
-                .sort((a, b) => b.score - a.score); 
+// **Function to check highscore only after the game ends (when gameRunning is false)**
+function checkHighScore(currentScore, game) {
+    if (!gameRunning) {  // Ensure this only runs when the game is over
+        fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(scores => {
+                const sortedScores = scores
+                    .filter(s => s.game === game)
+                    .sort((a, b) => b.score - a.score);
 
-            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
-            if (currentScore > highestScore) {
-                callback(currentScore); // If the score is new, call the callback
-            }
-        })
-        .catch(error => console.error('Error fetching high scores:', error));
+                const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+                if (currentScore > highestScore) {
+                    isNewHighScore = true;
+                    newScoreSpan.textContent = currentScore;
+                    highScorePopup.style.display = "block"; // Show highscore popup
+                }
+            })
+            .catch(error => console.error('Error fetching high scores:', error));
+    }
 }
 
-// **Function to submit the highscore to the backend**
+// **Submit the highscore when the player enters their name**
 submitHighScoreButton.onclick = function() {
     const playerName = playerNameInput.value.trim();
     if (playerName && isNewHighScore) {
@@ -241,39 +236,6 @@ function submitHighScore(game, playerName, score) {
     })
     .catch(error => console.error('Error submitting high score:', error));
 }
-
-// Main game loop function to ensure the message and time are still visible
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    update(); // Update game state
-    drawPixelMan(player.x, player.y, player.isAttacking, player.isBlocking); // Draw player
-    drawOpponent(opponent.x, opponent.y, opponent.isAttacking, opponent.isBlocking); // Draw opponent
-    drawHealthBars(); // Draw health bars
-
-    if (isGameOver) {
-        ctx.fillStyle = `rgba(0, 0, 0, ${Math.min(fadeOpacity, 0.7)})`;
-        ctx.fillRect(0, 0, canvas.width, canvas.height); // Add fade effect
-
-        // Gradually increase the fade opacity
-        if (fadeOpacity < 1) {
-            fadeOpacity += 0.01;
-        }
-
-        // Display message with color based on the game outcome
-        ctx.fillStyle = message === "You Died" ? `rgba(255, 0, 0, ${fadeOpacity})` : `rgba(255, 255, 0, ${fadeOpacity})`;
-        ctx.font = '30px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(message, canvas.width / 2, canvas.height / 2);
-
-        // Display elapsed time with a white color
-        ctx.fillStyle = 'white';
-        ctx.font = '24px Arial';
-        ctx.fillText(`Time: ${elapsedTime.toFixed(2)} seconds`, canvas.width / 2, canvas.height / 2 + 40);
-    }
-
-    requestAnimationFrame(gameLoop); // Request the next frame
-}
-
 
 // Prevent opponent from passing through player when player is against the wall
 if (player.x === 0 && opponent.x < player.x + player.width) {
