@@ -182,4 +182,5 @@ document.addEventListener("DOMContentLoaded", () => {
     downButton.addEventListener("click", movedown);
     leftButton.addEventListener("click", moveleft);
     rightButton.addEventListener("click", moveright);
-});
+ });
+ 
