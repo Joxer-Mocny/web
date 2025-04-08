@@ -13,6 +13,10 @@ const startButton = document.getElementById("startButton");
     const instructions = document.getElementById("instructions");
     // Get reference to the mobile controls container
     const mobileControls = document.getElementById("mobileControls");
+    const highScorePopup = document.getElementById("highScorePopup");
+    const newScoreSpan = document.getElementById("newScore");
+    const playerNameInput = document.getElementById("playerName");
+    const submitHighScoreButton = document.getElementById("submitHighScore");
  
     // Initialize game variables
     let carX = canvas.width / 2 - 15;
@@ -23,13 +27,14 @@ const startButton = document.getElementById("startButton");
     let obstacles = [];
     let bullets = [];
     // Game running status
-let gameIsRunning = false;
+    let gameIsRunning = false;
     let score = 0;
     let ammo = 1;
+    let isNewHighScore = false;
  
     // Function to start the game
     // Function to start the game
-function startGame() {
+    function startGame() {
         // Reset game variables
         carX = canvas.width / 2 - 15;
         carY = canvas.height - 60;
@@ -48,8 +53,7 @@ function startGame() {
     }
  
     // Main game loop
-    // Main game loop
-function gameLoop() {
+    function gameLoop() {
         if (gameIsRunning) {
             updateGame(); // Update game state
             drawGame();   // Draw game state
@@ -58,8 +62,7 @@ function gameLoop() {
     }
  
     // Update game state
-    // Function to update the game state
-function updateGame() {
+    function updateGame() {
         // Update car position
         carX += velocityX;
         if (carX < 0) carX = 0;
@@ -171,12 +174,77 @@ function updateGame() {
         ctx.fillText("Ammo: " + ammo, 10, 40);
     }
  
-    // Handle game over
-    // Function to handle game over state
-function gameOver() {
+  
+//    Game over
+    function gameOver() {
         gameIsRunning = false;
         startButton.style.display = "block";
-        mobileControls.style.display = "none"; 
+        mobileControls.style.display = "none"; // Hide mobile controls on game over
+
+        //  Check for high score**
+        checkHighScore(score, 'racing', (newHighScore) => {
+            if (newHighScore) {
+                isNewHighScore = true;
+                newScoreSpan.textContent = score;
+                highScorePopup.style.display = "block"; // Show high score popup
+            }
+        });
+    }
+
+    //  Backend check for high score**
+    function checkHighScore(currentScore, game, callback) {
+        fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(scores => {
+                const sortedScores = scores
+                    .filter(s => s.game === game)
+                    .sort((a, b) => b.score - a.score); 
+
+                const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+                if (currentScore > highestScore) {
+                    callback(currentScore); // New high score
+                }
+            })
+            .catch(error => console.error('Error fetching high scores:', error));
+    }
+
+    //  Submit high score to backend**
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName && isNewHighScore) {
+            submitHighScore('racing', playerName, score); // Submit to the backend
+            isNewHighScore = false;
+            highScorePopup.style.display = "none"; // Hide the high score popup
+        } else {
+            alert('Please enter your name');
+        }
+    };
+
+    // Submit high score to backend**
+    function submitHighScore(game, playerName, score) {
+        const newHighScore = { game, name: playerName, score };
+        fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newHighScore)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('High score submitted!');
+                document.getElementById("highScorePopup").style.display = "none";
+                document.getElementById("playerName").value = ''; // Clear input
+            } else {
+                alert('Error submitting high score');
+            }
+        })
+        .catch(error => console.error('Error submitting high score:', error));
     }
  
     // Event listeners for mobile controls
