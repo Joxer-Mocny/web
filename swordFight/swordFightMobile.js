@@ -24,7 +24,7 @@ height: 80, // Height of the player
 speed: 5, // Movement speed
 isAttacking: false, // Attack state
 isBlocking: false, // Block state
-health: 1 // Health points
+health: 10 // Health points
 };
 
 // Define the opponent object with initial properties
@@ -38,7 +38,7 @@ direction: -1, // Movement direction
 isAttacking: false, // Attack state
 isBlocking: false, // Block state
 attackCooldown: 0, // Cooldown for attacks
-health: 1 // Health points
+health: 10 // Health points
 };
 
 // Game state variables
@@ -158,11 +158,13 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
+
+            // **Change: Check if the score is a new highscore only when the opponent loses**
             checkHighScore(score, 'swordFight', (newHighScore) => {
                 if (newHighScore) {
                     isNewHighScore = true;
                     newScoreSpan.textContent = score;
-                    highScorePopup.style.display = "block"; 
+                    highScorePopup.style.display = "block"; // Show highscore popup
                 }
             });
         }
@@ -177,10 +179,10 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
         }
     } else {
         if (player.isAttacking && opponent.isBlocking) {
-            player.isAttacking = false; 
+            player.isAttacking = false; // Reset player's attack if blocked
         }
         if (opponent.isAttacking && player.isBlocking) {
-            opponent.isAttacking = false; 
+            opponent.isAttacking = false; // Reset opponent's attack if blocked
         }
         if (player.x < opponent.x) {
             player.x = opponent.x - player.width;
@@ -189,6 +191,63 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
         }
     }
 }
+
+// **Function to check if the current score is a new highscore from the server**
+function checkHighScore(currentScore, game, callback) {
+    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(scores => {
+            const sortedScores = scores
+                .filter(s => s.game === game)
+                .sort((a, b) => b.score - a.score); 
+
+            const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+            if (currentScore > highestScore) {
+                callback(currentScore); // If the score is new, call the callback function
+            }
+        })
+        .catch(error => console.error('Error fetching high scores:', error));
+}
+
+// **Function to submit the highscore to the backend**
+submitHighScoreButton.onclick = function() {
+    const playerName = playerNameInput.value.trim();
+    if (playerName && isNewHighScore) {
+        submitHighScore('swordFight', playerName, score); // Submit the score to the backend
+        isNewHighScore = false;
+        highScorePopup.style.display = "none"; // Hide the popup
+    } else {
+        alert('Please enter your name');
+    }
+};
+
+// **Function to submit the highscore to the backend**
+function submitHighScore(game, playerName, score) {
+    const newHighScore = { game, name: playerName, score };
+    fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newHighScore)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('High score submitted!');
+            document.getElementById("highScorePopup").style.display = "none";
+            document.getElementById("playerName").value = ''; // Clear the name field
+        } else {
+            alert('Error submitting high score');
+        }
+    })
+    .catch(error => console.error('Error submitting high score:', error));
+}
+
 
 function checkHighScore(currentScore, game, callback) {
     fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
