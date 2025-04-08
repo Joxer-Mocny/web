@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to load high scores for the selected game
     async function loadHighscores() {
-        const response = await fetch(`/highscores/${game}`);
+        const response = await fetch(`/highscore/${game}`);
         const highscores = await response.json();
         const highscoreList = document.getElementById("highscoreItems");
 
