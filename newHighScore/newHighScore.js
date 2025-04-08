@@ -1,6 +1,6 @@
 // Checks if current score is a new high score (lower is better)
 function checkHighScore(currentScore, game, callback) {
-    fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+    fetch(`${API_URL}/${game}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -24,7 +24,7 @@ function checkHighScore(currentScore, game, callback) {
  // Submits new high score to the backend
  function submitHighScore(game, playerName, score) {
     const newHighScore = { game, name: playerName, score };
-    fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
+    fetch('${API_URL}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
