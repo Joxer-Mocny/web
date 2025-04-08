@@ -24,7 +24,7 @@ function checkHighScore(currentScore, game, callback) {
  // Submits new high score to the backend
  function submitHighScore(game, playerName, score) {
     const newHighScore = { game, name: playerName, score };
-    fetch('${API_URL}', {
+    fetch(`${API_URL}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
