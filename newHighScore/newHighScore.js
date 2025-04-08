@@ -1,5 +1,5 @@
 // Checks if current score is a new high score (lower is better)
-import { API_URL } from '../config'; 
+const API_URL = 'https://filiptrcka-6f2669a91720.herokuapp.com';
 function checkHighScore(currentScore, game, callback) {
     fetch(`${API_URL}/${game}`)
         .then(response => {
