@@ -151,7 +151,7 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
             isGameOver = true;
             gameRunning = false;
             elapsedTime = (Date.now() - startTime) / 1000;
-            checkHighScore(score, 'swordFight');
+            checkHighScore(elapsedTime, 'swordFight');
         }
     } else if (opponent.isAttacking && !player.isBlocking) {
         player.health--;
@@ -179,7 +179,7 @@ if (player.x + player.width > opponent.x && player.x < opponent.x + opponent.wid
 
 // **Function to check highscore only after the game ends (when gameRunning is false)**
 function checkHighScore(currentScore, game) {
-    if (!gameRunning) {  // Ensure this only runs when the game is over
+    if (isGameOver) {  // Ensure this only runs when the game is over
         fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
             .then(response => {
                 if (!response.ok) {
