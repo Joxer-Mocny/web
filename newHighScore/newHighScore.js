@@ -1,4 +1,5 @@
 // Checks if current score is a new high score (lower is better)
+import { API_URL } from '../config'; 
 function checkHighScore(currentScore, game, callback) {
     fetch(`${API_URL}/${game}`)
         .then(response => {
