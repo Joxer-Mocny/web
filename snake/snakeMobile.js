@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Get references to DOM elements
+    // Canvas element and context
     const canvas = document.querySelector("canvas");
+    // 2D rendering context
     const ctx = canvas.getContext("2d");
     const title = document.querySelector("h1");
     const restartButton = document.getElementById("restartButton");
@@ -9,7 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftButton = document.getElementById("leftButton");
     const rightButton = document.getElementById("rightButton");
     const mobileControls = document.getElementById("mobileControls");
- 
+
+    // highscore
+    const highScorePopup = document.getElementById("highScorePopup");
+    const newScoreSpan = document.getElementById("newScore");
+    const playerNameInput = document.getElementById("playerName");
+    const submitHighScoreButton = document.getElementById("submitHighScore");
+
     // Game variables
     let tileSize = 15;
     let snakeSpeed = tileSize;
@@ -21,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let snakeLength = 4;
     let foodPosX = 0;
     let foodPosY = 0;
+    // Game running status
     let gameIsRunning = false;
     let gameStarted = false; 
     let fps = 5;
@@ -123,8 +132,73 @@ document.addEventListener("DOMContentLoaded", () => {
         gameIsRunning = false;
         restartButton.style.display = "block";
         mobileControls.style.display = "none"; // Hide mobile controls on game over
+
+        // **Use the backend checkHighScore function**
+        checkHighScore(score, 'snake', (newHighScore) => {
+            if (newHighScore) {
+                isNewHighScore = true;
+                newScoreSpan.textContent = score;
+                highScorePopup.style.display = "block"; // Show highscore popup
+            }
+        });
     }
- 
+
+    // **Backend check for highscore** (from newHighScore.js)
+    function checkHighScore(currentScore, game, callback) {
+        fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(scores => {
+                const sortedScores = scores
+                    .filter(s => s.game === game)
+                    .sort((a, b) => b.score - a.score); 
+            
+                const highestScore = sortedScores.length ? sortedScores[0].score : 0;
+                if (currentScore > highestScore) {
+                    callback(currentScore); // New highscore
+                }
+            })
+            .catch(error => console.error('Error fetching high scores:', error));
+    }
+
+    // **Submit highscore to the backend** (from newHighScore.js)
+    submitHighScoreButton.onclick = function() {
+        const playerName = playerNameInput.value.trim();
+        if (playerName && isNewHighScore) {
+            submitHighScore('snake', playerName, score); // Submit to the backend
+            isNewHighScore = false;
+            highScorePopup.style.display = "none";
+        } else {
+            alert('Please enter your name');
+        }
+    };
+
+    // **Submit highscore to backend** (from newHighScore.js)
+    function submitHighScore(game, playerName, score) {
+        const newHighScore = { game, name: playerName, score };
+        fetch('https://filiptrcka-6f2669a91720.herokuapp.com/submit-highscore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newHighScore)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('High score submitted!');
+                document.getElementById("highScorePopup").style.display = "none";
+                document.getElementById("playerName").value = ''; // Clear input
+            } else {
+                alert('Error submitting high score');
+            }
+        })
+        .catch(error => console.error('Error submitting high score:', error));
+    }
+
     // Movement functions for mobile controls
     function moveleft() {
         if (velocityX !== 1) {
