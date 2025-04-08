@@ -1,5 +1,6 @@
 // Checks if current score is a new high score (lower is better)
-const API_URL = 'https://filiptrcka-6f2669a91720.herokuapp.com';
+require('dotenv').config();
+const API_URL = process.env.API_URL;
 function checkHighScore(currentScore, game, callback) {
     fetch(`${API_URL}/${game}`)
         .then(response => {
