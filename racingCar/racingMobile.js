@@ -29,7 +29,7 @@ const startButton = document.getElementById("startButton");
     // Game running status
     let gameIsRunning = false;
     let score = 0;
-    let ammo = 1;
+    let ammo = 10;
     let isNewHighScore = false;
  
     // Function to start the game

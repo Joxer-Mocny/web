@@ -34,7 +34,7 @@ function startGame() {
         velocityX = 0;
         obstacles = [];
         bullets = [];
-        ammo = 1;
+        ammo = 10;
         score = 0;
         gameIsRunning = true;
         startButton.style.display = "none";
