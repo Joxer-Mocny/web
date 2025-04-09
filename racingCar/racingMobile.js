@@ -41,7 +41,7 @@ const startButton = document.getElementById("startButton");
         velocityX = 0;
         obstacles = [];
         bullets = [];
-        ammo = 1;
+        ammo = 10;
         score = 0;
         gameIsRunning = true;
         // Hide start button and instructions, show mobile controls

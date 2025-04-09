@@ -20,7 +20,7 @@ const startButton = document.getElementById("startButton");
     let velocityX = 0;
     let obstacles = [];
     let bullets = [];
-    let ammo = 1;
+    let ammo = 10;
     // Game status flag
 let gameIsRunning = false;
     let score = 0;
