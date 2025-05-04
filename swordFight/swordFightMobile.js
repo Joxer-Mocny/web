@@ -268,12 +268,12 @@ function resetGame() {
 player.x = 50;
 player.isAttacking = false;
 player.isBlocking = false;
-player.health = 1;
+player.health = 10;
 opponent.x = 300;
 opponent.isAttacking = false;
 opponent.isBlocking = false;
 opponent.attackCooldown = 0;
-opponent.health = 1;
+opponent.health = 10;
 message = '';
 fadeOpacity = 0;
 isGameOver = false;
