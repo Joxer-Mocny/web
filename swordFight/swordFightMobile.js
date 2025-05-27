@@ -277,6 +277,7 @@ opponent.health = 10;
 message = '';
 fadeOpacity = 0;
 isGameOver = false;
+
 gameRunning = true;
 startTime = Date.now();
 }

@@ -1,7 +1,7 @@
 document.getElementById('showHighScoresButton').addEventListener('click', async () => {
     const game = document.getElementById('gameSelect').value;
     try {
-        const response = await fetch(`https://filiptrcka-6f2669a91720.herokuapp.com/highscores/${game}`);
+        const response = await fetch(`/highscores/${game}`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -14,4 +14,4 @@ document.getElementById('showHighScoresButton').addEventListener('click', async 
     } catch (error) {
         console.error('Error fetching high scores:', error);
     }
- });
+});
